@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161c;--volt:#2f4cf6;--volt-deep:#0e1330;--accent:#caf24d;
+    --bg:#edeef2;--cream:#ffffff;--surface:#ffffff;--line:#e0e2ea;--muted:#7b8092;--sky:#dde2ff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#edeef2;}
+</style>
+</helmet>
+
+<div style="{{ themeStyle }}">
+<div style="max-width:1180px;margin:0 auto;padding:60px 24px 96px;">
+
+  <!-- INTRO -->
+  <div style="margin-bottom:40px;max-width:780px;">
+    <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--volt);font-weight:700;margin-bottom:16px;">Identidad de marca · Rubro Tecnología</div>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,6vw,68px);line-height:.98;letter-spacing:-.025em;margin:0 0 18px;color:var(--ink);">Una marca con pulso.</h1>
+    <p style="font-size:clamp(16px,1.7vw,19px);line-height:1.6;color:#535868;margin:0;text-wrap:pretty;">La <b style="color:var(--ink);">tecnología</b> se compra por novedad y se decide rápido. Audio, carga y accesorios tienen el mejor margen del rubro y un público joven que vive en el celu. La marca tiene que sentirse moderna, ágil y premium. Abajo, el camino recomendado, alternativas y cómo se ve aplicado.</p>
+  </div>
+
+  <!-- WHY TECH -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px;">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:var(--volt);line-height:1;">⚡</div>
+      <div style="font-size:14px;color:#535868;line-height:1.5;margin-top:10px;">Compra de impulso: el accesorio tech se decide rápido, por novedad y por ganas.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:var(--volt);line-height:1;">%</div>
+      <div style="font-size:14px;color:#535868;line-height:1.5;margin-top:10px;">Mejor margen: cables, fundas y cargadores rinden mucho más que el equipo grande.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:var(--volt);line-height:1;">18–34</div>
+      <div style="font-size:14px;color:#535868;line-height:1.5;margin-top:10px;">Público joven y digital: vive en el celular y elige por diseño, reviews y onda de marca.</div>
+    </div>
+  </div>
+
+  <!-- PRIMARY LOCKUP -->
+  <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px;">Nombre recomendado</div>
+  <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-bottom:48px;">
+    <!-- on light -->
+    <div style="background:var(--cream);border:1px solid var(--line);border-radius:24px;padding:54px 48px;display:flex;flex-direction:column;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:18px;">
+        <span style="width:74px;height:74px;border-radius:22px;background:var(--volt);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg viewBox="0 0 64 40" width="42" height="26" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 H19 L25 7 L34 33 L41 20 H60"></path></svg>
+        </span>
+        <div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(44px,7vw,78px);line-height:.9;letter-spacing:-.04em;color:var(--ink);">pulso</div>
+        </div>
+      </div>
+      <div style="font-size:15px;color:#535868;margin-top:22px;letter-spacing:.02em;">Tecnología que te sigue el ritmo · audio, carga y gadgets</div>
+    </div>
+    <!-- reversed on deep -->
+    <div style="background:var(--volt-deep);border-radius:24px;padding:40px;display:flex;flex-direction:column;justify-content:space-between;">
+      <span style="width:58px;height:58px;border-radius:17px;background:rgba(255,255,255,.08);color:var(--accent);display:flex;align-items:center;justify-content:center;">
+        <svg viewBox="0 0 64 40" width="34" height="21" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 H19 L25 7 L34 33 L41 20 H60"></path></svg>
+      </span>
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:46px;line-height:.9;letter-spacing:-.04em;color:#fff;">pulso</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:12px;letter-spacing:.04em;">Versión en negativo</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 24px;margin-bottom:56px;font-size:14.5px;color:#535868;line-height:1.6;">
+    <b style="color:var(--ink);">Por qué “pulso”:</b> suena moderno, sobrio y premium sin ser frío. Habla del ritmo y la energía de la tecnología, y el ícono de onda lo dice de un vistazo. Es corto, fácil de pronunciar y de buscar en Mercado Libre, y funciona igual para audio, carga o gadgets. Tiene aire para crecer de tienda a marca con identidad propia.
+  </div>
+
+  <!-- NAME ALTERNATIVES -->
+  <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px;">Alternativas de nombre</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px;">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="flex:1;min-height:150px;display:flex;align-items:center;justify-content:center;padding:30px;">
+        <div style="display:flex;align-items:center;gap:11px;">
+          <svg viewBox="0 0 64 64" width="24" height="24" fill="var(--accent)" aria-hidden="true"><path d="M36 4 L13 36 H29 L27 60 L51 26 H35 Z"></path></svg>
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;letter-spacing:-.03em;color:var(--ink);">voltio</span>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--line);padding:14px 18px;font-size:13px;color:#535868;line-height:1.45;">Energía directa, tono enérgico. Muy claro, un poco más “tienda” que marca.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="flex:1;min-height:150px;display:flex;align-items:center;justify-content:center;padding:30px;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;letter-spacing:-.03em;color:var(--ink);">chispa</span>
+      </div>
+      <div style="border-top:1px solid var(--line);padding:14px 18px;font-size:13px;color:#535868;line-height:1.45;">Entusiasmo y juego. Muy lindo para redes, un poco menos “serio”.</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="flex:1;min-height:150px;display:flex;align-items:center;justify-content:center;padding:30px;">
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:32px;letter-spacing:-.03em;color:var(--ink);">en<span style="color:var(--volt);">chufe</span></span>
+      </div>
+      <div style="border-top:1px solid var(--line);padding:14px 18px;font-size:13px;color:#535868;line-height:1.45;">Doble sentido argentino: el enchufe real y “tener enchufe”. Ingenioso y memorable.</div>
+    </div>
+  </div>
+
+  <!-- PALETTE -->
+  <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px;">Paleta</div>
+  <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px;margin-bottom:56px;">
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:16px;">
+      <div>
+        <div style="height:96px;border-radius:14px;background:#2f4cf6;border:1px solid var(--line);"></div>
+        <div style="font-size:13px;color:var(--ink);margin-top:10px;font-weight:700;">Pulso</div>
+        <div style="font-size:11.5px;color:var(--muted);">#2F4CF6</div>
+      </div>
+      <div>
+        <div style="height:96px;border-radius:14px;background:#0e1330;border:1px solid var(--line);"></div>
+        <div style="font-size:13px;color:var(--ink);margin-top:10px;font-weight:700;">Noche</div>
+        <div style="font-size:11.5px;color:var(--muted);">#0E1330</div>
+      </div>
+      <div>
+        <div style="height:96px;border-radius:14px;background:#caf24d;border:1px solid var(--line);"></div>
+        <div style="font-size:13px;color:var(--ink);margin-top:10px;font-weight:700;">Lima</div>
+        <div style="font-size:11.5px;color:var(--muted);">#CAF24D</div>
+      </div>
+      <div>
+        <div style="height:96px;border-radius:14px;background:#dde2ff;border:1px solid var(--line);"></div>
+        <div style="font-size:13px;color:var(--ink);margin-top:10px;font-weight:700;">Cielo</div>
+        <div style="font-size:11.5px;color:var(--muted);">#DDE2FF</div>
+      </div>
+      <div>
+        <div style="height:96px;border-radius:14px;background:#edeef2;border:1px solid var(--line);"></div>
+        <div style="font-size:13px;color:var(--ink);margin-top:10px;font-weight:700;">Niebla</div>
+        <div style="font-size:11.5px;color:var(--muted);">#EDEEF2</div>
+      </div>
+      <div>
+        <div style="height:96px;border-radius:14px;background:#14161c;border:1px solid var(--line);"></div>
+        <div style="font-size:13px;color:var(--ink);margin-top:10px;font-weight:700;">Tinta</div>
+        <div style="font-size:11.5px;color:var(--muted);">#14161C</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE -->
+  <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px;">Tipografía</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:56px;">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;">
+        <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--volt);font-weight:700;">Títulos</span>
+        <span style="font-size:13px;color:var(--muted);">Space Grotesk</span>
+      </div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:64px;line-height:.95;letter-spacing:-.03em;color:var(--ink);">Aa</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:var(--ink);margin-top:14px;letter-spacing:-.02em;">Te sigue el ritmo</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:14px;letter-spacing:.04em;">abcdefghijklmnñopqrstuvwxyz · 0123456789</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;">
+        <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--volt);font-weight:700;">Texto</span>
+        <span style="font-size:13px;color:var(--muted);">Hanken Grotesk</span>
+      </div>
+      <div style="font-weight:800;font-size:64px;line-height:.95;color:var(--ink);">Aa</div>
+      <p style="font-size:15px;line-height:1.6;color:#535868;margin:14px 0 0;">Space Grotesk aporta el carácter técnico y geométrico del título; Hanken sostiene specs, compatibilidades y precios con claridad total en pantalla chica.</p>
+      <div style="font-size:13px;color:var(--muted);margin-top:14px;letter-spacing:.02em;">Regular · Medium · Semibold · Bold</div>
+    </div>
+  </div>
+
+  <!-- APPLICATIONS -->
+  <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:14px;">Aplicado</div>
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;align-items:start;">
+
+    <!-- banner -->
+    <div style="background:var(--volt-deep);border-radius:22px;padding:36px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative;">
+      <div style="display:flex;align-items:center;gap:11px;">
+        <span style="width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.08);color:var(--accent);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 64 40" width="24" height="15" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 H19 L25 7 L34 33 L41 20 H60"></path></svg>
+        </span>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#fff;letter-spacing:-.03em;">pulso</span>
+      </div>
+      <div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,40px);line-height:1;color:#fff;letter-spacing:-.03em;">Tecnología que<br>te sigue el ritmo.</div>
+        <span style="display:inline-block;margin-top:18px;background:var(--accent);color:#15200a;font-weight:700;font-size:14px;padding:11px 22px;border-radius:999px;">Ver productos</span>
+      </div>
+    </div>
+
+    <!-- ML listing 1 -->
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="aspect-ratio:1/1;background:var(--sky);display:flex;align-items:center;justify-content:center;color:var(--volt);">
+        <svg viewBox="0 0 64 40" width="58" height="36" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" aria-hidden="true"><path d="M4 20 H19 L25 7 L34 33 L41 20 H60"></path></svg>
+      </div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:6px;">
+        <div style="font-size:13.5px;color:var(--ink);line-height:1.35;font-weight:500;">Auriculares inalámbricos TWS con estuche de carga</div>
+        <div style="font-size:22px;font-weight:800;color:var(--ink);font-family:'Hanken Grotesk',sans-serif;">$42.900</div>
+        <div style="font-size:12.5px;color:var(--volt);font-weight:700;">Envío gratis</div>
+        <div style="font-size:12px;color:var(--muted);">6 cuotas sin interés de $7.150</div>
+      </div>
+    </div>
+
+    <!-- ML listing 2 -->
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;">
+      <div style="aspect-ratio:1/1;background:#eaf6c9;display:flex;align-items:center;justify-content:center;color:#7a9626;">
+        <svg viewBox="0 0 64 40" width="58" height="36" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7" aria-hidden="true"><path d="M4 20 H19 L25 7 L34 33 L41 20 H60"></path></svg>
+      </div>
+      <div style="padding:14px;display:flex;flex-direction:column;gap:6px;">
+        <span style="align-self:flex-start;background:var(--volt);color:#fff;font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:6px;">15% OFF</span>
+        <div style="font-size:13.5px;color:var(--ink);line-height:1.35;font-weight:500;">Cargador magnético 3 en 1 para celu, reloj y auris</div>
+        <div style="font-size:22px;font-weight:800;color:var(--ink);font-family:'Hanken Grotesk',sans-serif;">$28.900</div>
+        <div style="font-size:12.5px;color:var(--volt);font-weight:700;">Envío gratis · Full</div>
+        <div style="font-size:12px;color:var(--muted);">Llega mañana</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;primary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2f4cf6&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#caf24d&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals(){
+    return {
+      themeStyle: {
+        '--volt': this.props.primary ?? '#2f4cf6',
+        '--accent': this.props.accent ?? '#caf24d',
+        background:'var(--bg)', color:'var(--ink)', minHeight:'100vh',
+        fontFamily:"'Hanken Grotesk', sans-serif"
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
