@@ -1,21 +1,104 @@
 {
   "items": [
-    { "id": 1, "cat": "Mascotas", "name": "Comedero lento antiansiedad", "price": 12900, "colors": ["#1c1c1c", "#7fb4d4", "#e8a0b0"] },
-    { "id": 2, "cat": "Mascotas", "name": "Cepillo quita pelos 2 en 1", "price": 8490, "old": 10900 },
-    { "id": 3, "cat": "Mascotas", "name": "Fuente de agua para gatos", "price": 34900, "colors": ["#ffffff", "#bfe0d2"] },
-    { "id": 4, "cat": "Tecnología para hogar", "name": "Auriculares inalámbricos TWS", "price": 42900, "colors": ["#1c1c1c", "#ffffff"] },
-    { "id": 5, "cat": "Tecnología para hogar", "name": "Cargador magnético 3 en 1", "price": 28900, "old": 33900 },
-    { "id": 6, "cat": "Tecnología para hogar", "name": "Mini proyector portátil", "price": 89900 },
-    { "id": 7, "cat": "Seguridad familiar", "name": "Cámara de seguridad exterior con alerta al celular", "price": 31400, "colors": ["#1c1c1c", "#ffffff"] },
-    { "id": 8, "cat": "Seguridad familiar", "name": "Cerradura inteligente con huella y app", "price": 54200, "old": 59900 },
-    { "id": 9, "cat": "Seguridad familiar", "name": "Kit de sensores de puertas y ventanas", "price": 22900 },
-    { "id": 10, "cat": "Turismo de bienestar", "name": "Día de spa y termas para dos personas", "price": 45000, "colors": ["#bfe0d2", "#ef9a86"] },
-    { "id": 11, "cat": "Turismo de bienestar", "name": "Retiro de fin de semana con circuito de aguas", "price": 89900, "old": 99900 },
-    { "id": 12, "cat": "Turismo de bienestar", "name": "Bono de masajes relajantes x3 sesiones", "price": 38900 }
+    {
+      "id": 2,
+      "cat": "Mascotas",
+      "name": "Cepillo quita pelos 2 en 1",
+      "price": 8490,
+      "old": 10900
+    },
+    {
+      "id": 3,
+      "cat": "Mascotas",
+      "name": "Fuente de agua para gatos",
+      "price": 34900,
+      "colors": [
+        "#ffffff",
+        "#bfe0d2"
+      ]
+    },
+    {
+      "id": 4,
+      "cat": "Tecnología para hogar",
+      "name": "Auriculares inalámbricos TWS",
+      "price": 42900,
+      "colors": [
+        "#1c1c1c",
+        "#ffffff"
+      ]
+    },
+    {
+      "id": 5,
+      "cat": "Tecnología para hogar",
+      "name": "Cargador magnético 3 en 1",
+      "price": 28900,
+      "old": 33900
+    },
+    {
+      "id": 6,
+      "cat": "Tecnología para hogar",
+      "name": "Mini proyector portátil",
+      "price": 89900
+    },
+    {
+      "id": 7,
+      "cat": "Seguridad familiar",
+      "name": "Cámara de seguridad exterior con alerta al celular",
+      "price": 31400,
+      "colors": [
+        "#1c1c1c",
+        "#ffffff"
+      ]
+    },
+    {
+      "id": 8,
+      "cat": "Seguridad familiar",
+      "name": "Cerradura inteligente con huella y app",
+      "price": 54200,
+      "old": 59900
+    },
+    {
+      "id": 9,
+      "cat": "Seguridad familiar",
+      "name": "Kit de sensores de puertas y ventanas",
+      "price": 22900
+    },
+    {
+      "id": 10,
+      "cat": "Turismo de bienestar",
+      "name": "Día de spa y termas para dos personas",
+      "price": 45000,
+      "colors": [
+        "#bfe0d2",
+        "#ef9a86"
+      ]
+    },
+    {
+      "id": 11,
+      "cat": "Turismo de bienestar",
+      "name": "Retiro de fin de semana con circuito de aguas",
+      "price": 89900,
+      "old": 99900
+    },
+    {
+      "id": 12,
+      "cat": "Turismo de bienestar",
+      "name": "Bono de masajes relajantes x3 sesiones",
+      "price": 38900
+    }
   ],
   "slides": [
-    { "title": "Todo lo que tu día necesita", "sub": "Mascotas, tecnología, seguridad y bienestar. Buenas ideas, a buen precio." },
-    { "title": "Seguridad familiar al alcance", "sub": "Cámaras, alarmas y cerraduras para dormir tranquilo." },
-    { "title": "Escapadas de bienestar", "sub": "Termas, spa y descanso para regalar o regalarte." }
+    {
+      "title": "Todo lo que tu día necesita",
+      "sub": "Mascotas, tecnología, seguridad y bienestar. Buenas ideas, a buen precio."
+    },
+    {
+      "title": "Seguridad familiar al alcance",
+      "sub": "Cámaras, alarmas y cerraduras para dormir tranquilo."
+    },
+    {
+      "title": "Escapadas de bienestar",
+      "sub": "Termas, spa y descanso para regalar o regalarte."
+    }
   ]
 }
