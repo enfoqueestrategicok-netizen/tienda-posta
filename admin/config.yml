@@ -28,7 +28,7 @@ collections:
               - { label: "Categoría", name: "cat", widget: "select", options: ["Mascotas", "Tecnología para hogar", "Seguridad familiar", "Turismo de bienestar"] }
               - { label: "Precio", name: "price", widget: "number", value_type: "int" }
               - { label: "Precio anterior (oferta, opcional)", name: "old", widget: "number", value_type: "int", required: false }
-              - { label: "Foto", name: "img", widget: "image", required: false, hint: "Se recorta al cuadrado en la tienda." }
+              - { label: "Foto", name: "img", widget: "image", required: false, hint: "Se muestra centrada en la tienda." }
               - label: "Colores disponibles (opcional)"
                 name: "colors"
                 widget: "list"
@@ -43,3 +43,4 @@ collections:
             fields:
               - { label: "Título", name: "title", widget: "string" }
               - { label: "Subtítulo", name: "sub", widget: "text" }
+              - { label: "Foto de fondo (opcional)", name: "img", widget: "image", required: false, hint: "Imagen horizontal que llame la atención. Se ve detrás del texto." }
