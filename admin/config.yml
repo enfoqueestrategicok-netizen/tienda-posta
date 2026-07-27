@@ -25,7 +25,7 @@ collections:
             fields:
               - { label: "ID", name: "id", widget: "number", value_type: "int", hint: "Número único. No repetir." }
               - { label: "Nombre", name: "name", widget: "string" }
-             - { label: "Categoría", name: "cat", widget: "select", options: ["Mascotas", "Tecnología para hogar", "Seguridad familiar", "Turismo de bienestar"] }
+              - { label: "Categoría", name: "cat", widget: "select", options: ["Mascotas", "Tecnología para hogar", "Seguridad familiar", "Turismo de bienestar"] }
               - { label: "Precio", name: "price", widget: "number", value_type: "int" }
               - { label: "Precio anterior (oferta, opcional)", name: "old", widget: "number", value_type: "int", required: false }
               - { label: "Foto", name: "img", widget: "image", required: false, hint: "Se recorta al cuadrado en la tienda." }
