@@ -15,15 +15,18 @@
   "slides": [
     {
       "title": "Todo lo que tu día necesita",
-      "sub": "Mascotas, tecnología, seguridad y bienestar. Buenas ideas, a buen precio."
+      "sub": "Mascotas, tecnología, seguridad y bienestar. Buenas ideas, a buen precio.",
+      "img": "/images/uploads/gemini_generated_image_dvw9r0dvw9r0dvw9.png"
     },
     {
       "title": "Seguridad familiar al alcance",
-      "sub": "Cámaras, alarmas y cerraduras para dormir tranquilo."
+      "sub": "Cámaras, alarmas y cerraduras para dormir tranquilo.",
+      "img": "/images/uploads/gemini_generated_image_fraiptfraiptfrai.png"
     },
     {
       "title": "Escapadas de bienestar",
-      "sub": "Termas, spa y descanso para regalar o regalarte."
+      "sub": "Termas, spa y descanso para regalar o regalarte.",
+      "img": "/images/uploads/gemini_generated_image_u6l2d0u6l2d0u6l2.png"
     }
   ]
 }
