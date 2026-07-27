@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tienda Posta</title>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      background: #0f1115; color: #f2f2f2; padding: 24px;
+    }
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    p { color: #9aa0a6; margin-bottom: 28px; }
+    a.admin {
+      display: inline-block; padding: 12px 22px; border-radius: 10px;
+      background: #ec4899; color: #fff; text-decoration: none; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tienda Posta</h1>
+  <p>Sitio en construcci&oacute;n.</p>
+  <a class="admin" href="/admin/">Panel de administraci&oacute;n</a>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function (user) {
+        if (!user) {
+          window.netlifyIdentity.on("login", function () {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
