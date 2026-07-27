@@ -1,0 +1,45 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Carpeta donde se guardan las fotos que subís (quedan en el repo y se ven para todos)
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "es"
+
+collections:
+  - name: "catalogo"
+    label: "Tienda"
+    files:
+      - name: "productos"
+        label: "Productos y portada"
+        file: "products.json"
+        description: "Editá precios, textos y fotos. Al guardar, se publica para todos."
+        fields:
+          - label: "Productos"
+            name: "items"
+            widget: "list"
+            label_singular: "Producto"
+            summary: "{{fields.name}} — ${{fields.price}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int", hint: "Número único. No repetir." }
+              - { label: "Nombre", name: "name", widget: "string" }
+              - { label: "Categoría", name: "cat", widget: "select", options: ["Mascotas", "Tecnología para hogar", "Seguridad familiar", "Turismo de bienestar"] }
+              - { label: "Precio", name: "price", widget: "number", value_type: "int" }
+              - { label: "Precio anterior (oferta, opcional)", name: "old", widget: "number", value_type: "int", required: false }
+              - { label: "Foto", name: "img", widget: "image", required: false, hint: "Se recorta al cuadrado en la tienda." }
+              - label: "Colores disponibles (opcional)"
+                name: "colors"
+                widget: "list"
+                required: false
+                field: { label: "Color (hex)", name: "color", widget: "string", hint: "Ej: #1c1c1c" }
+          - label: "Portada (carrusel)"
+            name: "slides"
+            widget: "list"
+            label_singular: "Diapositiva"
+            max: 3
+            min: 3
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Subtítulo", name: "sub", widget: "text" }
