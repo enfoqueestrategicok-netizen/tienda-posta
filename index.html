@@ -694,7 +694,7 @@ class Component extends DCLogic {
       E('circle',{key:'t3',cx:14,cy:7.1,r:1.7}),
       E('circle',{key:'t4',cx:17.6,cy:10,r:1.7}));
   }
-  imgEl(src, alt){ return src ? React.createElement('img',{src, alt:alt||'', style:{position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}}) : null; }
+  imgEl(src, alt, opts){ opts = opts||{}; return src ? React.createElement('img',{src, alt:alt||'', style:{position:'absolute', inset:0, width:'100%', height:'100%', objectFit:(opts.fit||'cover'), objectPosition:'center', padding:(opts.pad||0), boxSizing:'border-box'}}) : null; }
   trustIcon(kind){
     const E = React.createElement;
     const b = {width:26, height:26, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.5, strokeLinecap:'round', strokeLinejoin:'round'};
@@ -801,7 +801,7 @@ class Component extends DCLogic {
     else if(sort==='nuevos') list = [...list].sort((a,b)=>b.id-a.id);
 
     const products = list.map(p => ({
-      ...p, key:String(p.id), hasImg:!!p.img, noImg:!p.img, imgNode:this.imgEl(p.img,p.name),
+      ...p, key:String(p.id), hasImg:!!p.img, noImg:!p.img, imgNode:this.imgEl(p.img,p.name,{fit:'contain',pad:'10%'}),
       priceLabel: this.formatARS(p.price),
       oldPriceLabel: p.old ? this.formatARS(p.old) : '',
       hasSale: !!p.old,
@@ -940,3 +940,4 @@ class Component extends DCLogic {
 </script>
 </body>
 </html>
+Mostrando tienda-index-para-pegar.txt.
