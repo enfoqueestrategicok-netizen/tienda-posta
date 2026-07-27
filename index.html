@@ -56,7 +56,7 @@
   <!-- TOP BAR -->
   <div style="background:var(--ink);color:var(--bg);">
     <div style="max-width:1240px;margin:0 auto;padding:9px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-      <span style="font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;font-family:var(--font-body);">Envíos a todo el país · Hasta 3 cuotas sin interés</span>
+      <span style="font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;font-family:var(--font-body);">Envíos a todo el país</span>
       <div style="display:flex;gap:8px;align-items:center;">
       </div>
     </div>
@@ -235,7 +235,7 @@
                       <span style="font-size:13px;color:var(--muted);text-decoration:line-through;font-family:var(--font-body);">{{ p.oldPriceLabel }}</span>
                     </sc-if>
                   </div>
-                  <div style="border:1px solid var(--line);border-radius:var(--radius);padding:7px 9px;font-size:11.5px;color:var(--muted);text-align:center;font-family:var(--font-body);">{{ p.cuotaLabel }}</div>
+                  
                   <button onClick="{{ p.onAdd }}" style="margin-top:auto;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:11px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.88;">Agregar al carrito</button>
                 </div>
               </div>
@@ -299,7 +299,7 @@
     <div style="border-top:1px solid var(--line);">
       <div style="max-width:1240px;margin:0 auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);font-family:var(--font-body);">
         <span>© 2026 Market Posta · Hecho en Argentina</span>
-        <span>Hasta 3 cuotas sin interés · Envíos a todo el país</span>
+        <span>Envíos a todo el país</span>
       </div>
     </div>
   </footer>
@@ -733,6 +733,25 @@ class Component extends DCLogic {
       method:s.coMethod, pay:s.coPay, addr:s.coAddr, notes:s.coNotes,
       items:s.cart.map(c=>({ name:c.name, qty:c.qty, price:c.price })), subtotal, surcharge, total, at:Date.now() };
     try { const o = JSON.parse(localStorage.getItem('tienda_orders')||'[]'); o.push(order); localStorage.setItem('tienda_orders', JSON.stringify(o)); } catch(e){}
+    try {
+      var WA = '5493513603155';
+      var L = [];
+      L.push('*Nuevo pedido ' + num + '* - Market Posta');
+      L.push('');
+      L.push('*Cliente:* ' + s.coName);
+      L.push('*Tel:* ' + s.coPhone);
+      var entrega = s.coMethod==='envio' ? ('Envio a domicilio' + (s.coAddr?(' - '+s.coAddr):'')) : 'Retiro en punto de entrega';
+      L.push('*Entrega:* ' + entrega);
+      L.push('*Pago:* ' + (s.coPay==='tarjeta' ? 'Tarjeta / Mercado Pago' : 'Efectivo'));
+      if(s.coNotes && s.coNotes.trim()) L.push('*Notas:* ' + s.coNotes.trim());
+      L.push('');
+      L.push('*Productos:*');
+      s.cart.forEach(function(c){ L.push('- ' + c.qty + ' x ' + c.name + ' (' + this.formatARS(c.qty*c.price) + ')'); }, this);
+      if(surcharge>0) L.push('Recargo tarjeta: ' + this.formatARS(surcharge));
+      L.push('');
+      L.push('*TOTAL: ' + this.formatARS(total) + '*');
+      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(L.join('\n')), '_blank');
+    } catch(e){}
     this.setState({ lastOrder:order, coDone:true, cart:[], coError:'' });
   }
   finishCheckout(){
@@ -846,10 +865,7 @@ class Component extends DCLogic {
       onInc:()=>this.changeQty(c.id,1), onDec:()=>this.changeQty(c.id,-1), onRemove:()=>this.removeFromCart(c.id) }));
 
     const trust = [
-      {key:'s', icon:this.trustIcon('ship'), title:'Envíos a todo el país', sub:'Despacho en 24/48 hs'},
-      {key:'c', icon:this.trustIcon('card'), title:'3 cuotas sin interés', sub:'Con todas las tarjetas'},
-      {key:'r', icon:this.trustIcon('return'), title:'Cambios fáciles', sub:'Hasta 30 días'},
-      {key:'t', icon:this.trustIcon('trust'), title:'Compra protegida', sub:'Pago 100% seguro'},
+      {key:'s', icon:this.trustIcon('ship'), title:'Envíos a todo el país', sub:'Despacho a coordinar'},
     ];
 
     const anyFilter = cat!=='Todos' || maxPrice!=null || query.trim()!=='' || sort!=='destacados';
