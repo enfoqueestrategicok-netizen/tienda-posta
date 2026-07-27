@@ -1,40 +1,940 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tienda Posta</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center;
-      background: #0f1115; color: #f2f2f2; padding: 24px;
-    }
-    h1 { font-size: 2rem; margin-bottom: 12px; }
-    p { color: #9aa0a6; margin-bottom: 28px; }
-    a.admin {
-      display: inline-block; padding: 12px 22px; border-radius: 10px;
-      background: #ec4899; color: #fff; text-decoration: none; font-weight: 600;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<!-- Netlify Identity: ataja invite_token / recovery_token y manda al panel -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function (user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function () { document.location.href = "/admin/"; });
+      }
+    });
+  }
+</script>
 </head>
 <body>
-  <h1>Tienda Posta</h1>
-  <p>Sitio en construcci&oacute;n.</p>
-  <a class="admin" href="/admin/">Panel de administraci&oacute;n</a>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", function (user) {
-        if (!user) {
-          window.netlifyIdentity.on("login", function () {
-            document.location.href = "/admin/";
-          });
-        }
-      });
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" rx="72" fill="#b06a4c"/>
+    <g transform="translate(118,116)" fill="none" stroke="#fbf9f5" stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 56 H146 L132 156 A18 18 0 0 1 114 172 H50 A18 18 0 0 1 32 156 Z"/>
+      <path d="M52 56 A30 30 0 0 1 112 56"/>
+    </g>
+  </svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Market Posta · Soluciones para el día a día">
+<meta property="og:description" content="Mascotas, tecnología, seguridad y bienestar. Buenas ideas a buen precio.">
+<meta property="og:image" content="./share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --ink:#0d0d0d;--bg:#ffffff;--surface:#ffffff;--muted:#6f6f6f;--line:#e6e6e6;
+    --tint:#f4f4f4;--accent:#0d0d0d;--accent-ink:#ffffff;--radius:4px;
+    --font-display:'Anton',sans-serif;--font-body:'Archivo',sans-serif;
+    --shadow:0 1px 0 #e6e6e6;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);}
+  @keyframes toastUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  input::placeholder{color:var(--muted);}
+  select{font-family:var(--font-body);}
+</style>
+</helmet>
+
+<div style="{{ themeStyle }}">
+
+  <!-- TOP BAR -->
+  <div style="background:var(--ink);color:var(--bg);">
+    <div style="max-width:1240px;margin:0 auto;padding:9px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;font-family:var(--font-body);">Envíos a todo el país · Hasta 3 cuotas sin interés</span>
+      <div style="display:flex;gap:8px;align-items:center;">
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header style="background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;">
+    <div style="{{ headerRowStyle }}">
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:9px 16px;max-width:300px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+          <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Buscar productos" style="border:none;outline:none;background:transparent;font-size:14px;width:100%;color:var(--ink);font-family:var(--font-body);">
+        </div>
+      </sc-if>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ openMenu }}" style="background:none;border:none;cursor:pointer;color:var(--ink);padding:4px;display:flex;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </sc-if>
+      <div style="text-align:center;cursor:default;">
+        <div style="display:flex;align-items:center;gap:8px;justify-content:center;">
+          <span style="font-family:'Newsreader',serif;font-weight:600;font-size:27px;color:var(--ink);line-height:1;border-bottom:3px solid var(--accent);padding-bottom:2px;">Market</span>
+          <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:15px;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent);padding:3px 8px;border-radius:6px;">POSTA</span>
+        </div>
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px;font-family:var(--font-body);">Soluciones para el día a día</div>
+        </sc-if>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:18px;">
+        <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+          <sc-if value="{{ isLogged }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:12.5px;letter-spacing:.04em;color:var(--ink);font-family:var(--font-body);">Hola, <b>{{ userLabel }}</b></span>
+            <span onClick="{{ logout }}" style="font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-family:var(--font-body);cursor:pointer;" style-hover="color:var(--ink);">Salir</span>
+          </sc-if>
+          <sc-if value="{{ notLogged }}" hint-placeholder-val="{{ true }}">
+            <span onClick="{{ openSignup }}" style="font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-family:var(--font-body);cursor:pointer;" style-hover="color:var(--ink);">Crear cuenta</span>
+            <span onClick="{{ openLogin }}" style="font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-family:var(--font-body);cursor:pointer;" style-hover="color:var(--ink);">Ingresar</span>
+          </sc-if>
+        </sc-if>
+        <button onClick="{{ openCart }}" style="position:relative;background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;color:var(--ink);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2.5 3h2.2l2.1 12.2a1.8 1.8 0 0 0 1.8 1.5h8.7a1.8 1.8 0 0 0 1.8-1.4L21.5 7H6"></path></svg>
+          <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}">
+            <span style="{{ cartBadgeStyle }}">{{ cartCount }}</span>
+          </sc-if>
+        </button>
+      </div>
+    </div>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:0 16px 14px;">
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:11px 16px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+          <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Buscar productos" style="border:none;outline:none;background:transparent;font-size:15px;width:100%;color:var(--ink);font-family:var(--font-body);">
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="border-top:1px solid var(--line);">
+        <div style="max-width:1240px;margin:0 auto;padding:13px 24px;display:flex;gap:30px;justify-content:center;flex-wrap:wrap;">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+            <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
+          </sc-for>
+        </div>
+      </nav>
+    </sc-if>
+  </header>
+
+  <!-- HERO CAROUSEL -->
+  <div style="max-width:1240px;margin:24px auto 0;padding:0 24px;">
+    <div style="position:relative;border-radius:var(--radius);overflow:hidden;min-height:clamp(320px,40vw,440px);">
+      <sc-for list="{{ slides }}" as="s" hint-placeholder-count="1">
+        <div style="{{ s.wrap }}">
+          <div style="max-width:580px;padding:clamp(28px,5vw,64px);">
+            <div style="{{ s.kickerStyle }}">{{ s.kicker }}</div>
+            <h2 style="{{ s.titleStyle }}">{{ s.title }}</h2>
+            <p style="font-size:clamp(15px,1.5vw,18px);line-height:1.5;color:var(--ink);opacity:.8;margin:0 0 26px;max-width:440px;font-family:var(--font-body);">{{ s.sub }}</p>
+            <button onClick="{{ s.onClick }}" style="background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:13px 28px;font-size:14px;font-weight:700;letter-spacing:.03em;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.88;">{{ s.cta }}</button>
+          </div>
+        </div>
+      </sc-for>
+      <button onClick="{{ heroPrev }}" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;color:var(--ink);" style-hover="background:var(--tint);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button onClick="{{ heroNext }}" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;color:var(--ink);" style-hover="background:var(--tint);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <div style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:9px;z-index:5;">
+        <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOG -->
+  <section style="max-width:1240px;margin:0 auto;padding:38px 24px 60px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px;">
+      <div>
+        <div style="font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-family:var(--font-body);">Inicio / Productos</div>
+        <h1 style="margin:6px 0 0;font-family:var(--font-display);font-size:clamp(26px,3.4vw,38px);color:var(--ink);line-height:1;">{{ sectionTitle }}</h1>
+        <div style="font-size:13px;color:var(--muted);margin-top:8px;font-family:var(--font-body);">{{ countLabel }}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <label style="font-size:13px;color:var(--muted);font-family:var(--font-body);">Ordenar por</label>
+        <div style="position:relative;">
+          <select value="{{ sort }}" onChange="{{ onSort }}" style="appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:var(--radius);padding:10px 38px 10px 14px;font-size:13.5px;cursor:pointer;font-family:var(--font-body);">
+            <option value="destacados">Más vendidos</option>
+            <option value="precio_asc">Precio: menor a mayor</option>
+            <option value="precio_desc">Precio: mayor a menor</option>
+            <option value="nuevos">Más nuevos</option>
+          </select>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:13px;top:50%;transform:translateY(-50%);pointer-events:none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleFilters }}" style="width:100%;margin-bottom:18px;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:var(--radius);padding:13px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-body);display:flex;align-items:center;justify-content:center;gap:9px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="18" x2="14" y2="18"></line></svg>
+        Filtros y categorías
+      </button>
+    </sc-if>
+    <div style="{{ catalogGridStyle }}">
+      <!-- SIDEBAR -->
+      <aside style="{{ sidebarStyle }}">
+        <div>
+          <div style="font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:14px;letter-spacing:.01em;">Categorías</div>
+          <div style="display:flex;flex-direction:column;gap:2px;">
+            <sc-for list="{{ catList }}" as="c" hint-placeholder-count="5">
+              <button onClick="{{ c.onClick }}" style="{{ c.style }}">
+                <span>{{ c.label }}</span>
+                <span style="{{ c.countStyle }}">{{ c.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="height:1px;background:var(--line);"></div>
+
+        <div>
+          <div style="font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:14px;">Precio</div>
+          <input type="range" min="2000" max="90000" step="1000" value="{{ maxPrice }}" onInput="{{ onPrice }}" style="width:100%;accent-color:var(--accent);cursor:pointer;">
+          <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:8px;font-family:var(--font-body);">
+            <span>$2.000</span>
+            <span style="color:var(--ink);font-weight:700;">Hasta {{ maxPriceLabel }}</span>
+          </div>
+        </div>
+
+        <sc-if value="{{ anyFilter }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ clearFilters }}" style="background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:var(--radius);padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);" style-hover="background:var(--tint);">Limpiar filtros</button>
+        </sc-if>
+      </aside>
+
+      <!-- GRID -->
+      <div>
+        <sc-if value="{{ hasProducts }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:22px;">
+            <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s;" style-hover="box-shadow:var(--shadow),0 16px 34px rgba(0,0,0,.07);transform:translateY(-3px);">
+                <div style="position:relative;aspect-ratio:1/1;background:var(--tint);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                  <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}">
+                    {{ p.imgNode }}
+                  </sc-if>
+                  <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}">
+                    <span style="color:var(--muted);opacity:.32;">{{ p.icon }}</span>
+                  </sc-if>
+                  <sc-if value="{{ p.hasSale }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute;top:10px;left:10px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;letter-spacing:.03em;padding:4px 9px;border-radius:999px;font-family:var(--font-body);">{{ p.discountLabel }}</span>
+                  </sc-if>
+                  <span style="position:absolute;top:10px;right:10px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;font-family:var(--font-body);">{{ p.cat }}</span>
+                </div>
+                <div style="padding:16px;display:flex;flex-direction:column;gap:9px;flex:1;">
+                  <div style="font-size:14px;font-weight:600;color:var(--ink);line-height:1.3;font-family:var(--font-body);min-height:36px;">{{ p.name }}</div>
+                  <div style="display:flex;align-items:baseline;gap:8px;">
+                    <span style="font-size:19px;font-weight:700;color:var(--ink);font-family:var(--font-body);">{{ p.priceLabel }}</span>
+                    <sc-if value="{{ p.hasSale }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:13px;color:var(--muted);text-decoration:line-through;font-family:var(--font-body);">{{ p.oldPriceLabel }}</span>
+                    </sc-if>
+                  </div>
+                  <div style="border:1px solid var(--line);border-radius:var(--radius);padding:7px 9px;font-size:11.5px;color:var(--muted);text-align:center;font-family:var(--font-body);">{{ p.cuotaLabel }}</div>
+                  <button onClick="{{ p.onAdd }}" style="margin-top:auto;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:11px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.88;">Agregar al carrito</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noProducts }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:80px 24px;text-align:center;border:1px dashed var(--line);border-radius:var(--radius);">
+            <div style="font-family:var(--font-display);font-size:22px;color:var(--ink);margin-bottom:8px;">Sin resultados</div>
+            <div style="font-size:14px;color:var(--muted);font-family:var(--font-body);margin-bottom:18px;">Probá ajustar los filtros o la búsqueda.</div>
+            <button onClick="{{ clearFilters }}" style="background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:11px 22px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);">Limpiar filtros</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div style="border-top:1px solid var(--line);background:var(--tint);">
+    <div style="max-width:1240px;margin:0 auto;padding:28px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px;">
+      <sc-for list="{{ trust }}" as="t" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:13px;">
+          <span style="color:var(--accent);flex-shrink:0;">{{ t.icon }}</span>
+          <div>
+            <div style="font-size:13.5px;font-weight:700;color:var(--ink);font-family:var(--font-body);">{{ t.title }}</div>
+            <div style="font-size:12.5px;color:var(--muted);font-family:var(--font-body);">{{ t.sub }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--surface);border-top:1px solid var(--line);">
+    <div style="max-width:1240px;margin:0 auto;padding:48px 24px 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:7px;">
+          <span style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:var(--ink);line-height:1;border-bottom:2px solid var(--accent);padding-bottom:2px;">Market</span>
+          <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:13px;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent);padding:2px 7px;border-radius:5px;">POSTA</span>
+        </div>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.6;margin:12px 0 0;max-width:280px;font-family:var(--font-body);">{{ tagline }}</p>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:14px;font-family:var(--font-body);">Categorías</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+            <button onClick="{{ n.onClick }}" style="background:none;border:none;text-align:left;padding:0;font-size:13.5px;color:var(--muted);cursor:pointer;font-family:var(--font-body);" style-hover="color:var(--ink);">{{ n.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:14px;font-family:var(--font-body);">Ayuda</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--muted);font-family:var(--font-body);">
+          <span>Envíos y entregas</span>
+          <span>Cambios y devoluciones</span>
+          <span>Medios de pago</span>
+          <span>Contacto por WhatsApp</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--line);">
+      <div style="max-width:1240px;margin:0 auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);font-family:var(--font-body);">
+        <span>© 2026 Market Posta · Hecho en Argentina</span>
+        <span>Hasta 3 cuotas sin interés · Envíos a todo el país</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCart }}" style="position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90;"></div>
+    <div style="position:fixed;top:0;right:0;bottom:0;width:min(400px,92vw);background:var(--surface);z-index:91;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(0,0,0,.18);">
+      <div style="padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-family:var(--font-display);font-size:22px;color:var(--ink);">Tu carrito</div>
+        <button onClick="{{ closeCart }}" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+        </button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:8px 24px;">
+
+        <!-- CONFIRMADO -->
+        <sc-if value="{{ coDone }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:40px 0 6px;">
+            <div style="width:64px;height:64px;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div style="font-family:var(--font-display);font-size:24px;color:var(--ink);margin-bottom:9px;line-height:1.1;">¡Gracias por tu compra!</div>
+            <div style="font-size:13.5px;color:var(--muted);font-family:var(--font-body);line-height:1.55;">Tu pedido <b style="color:var(--ink);">N° {{ orderNum }}</b> fue confirmado.</div>
+          </div>
+          <div style="background:var(--tint);border-radius:var(--radius);padding:16px 18px;margin-top:10px;">
+            <div style="display:flex;justify-content:space-between;gap:14px;font-size:13.5px;margin-bottom:10px;font-family:var(--font-body);color:var(--ink);"><span style="color:var(--muted);">Entrega</span><span style="font-weight:600;text-align:right;">{{ orderDelivery }}</span></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;font-size:13.5px;margin-bottom:10px;font-family:var(--font-body);color:var(--ink);"><span style="color:var(--muted);">Pago</span><span style="font-weight:600;text-align:right;">{{ orderPay }}</span></div>
+            <div style="height:1px;background:var(--line);margin:11px 0;"></div>
+            <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:700;color:var(--ink);font-family:var(--font-body);"><span>Total</span><span>{{ orderTotalLabel }}</span></div>
+          </div>
+        </sc-if>
+
+        <!-- ITEMS + ENTREGA/PAGO -->
+        <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ cartItems }}" as="i" hint-placeholder-count="2">
+            <div style="display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);align-items:center;">
+              <div style="width:62px;height:62px;border-radius:var(--radius);background:var(--tint);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative;">
+                <sc-if value="{{ i.hasImg }}" hint-placeholder-val="{{ false }}">{{ i.imgNode }}</sc-if>
+                <sc-if value="{{ i.noImg }}" hint-placeholder-val="{{ true }}"><span style="color:var(--muted);opacity:.4;">{{ i.icon }}</span></sc-if>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13.5px;font-weight:600;color:var(--ink);font-family:var(--font-body);line-height:1.3;">{{ i.name }}</div>
+                <div style="font-size:13px;color:var(--muted);margin-top:3px;font-family:var(--font-body);">{{ i.lineLabel }}</div>
+                <div style="display:flex;align-items:center;gap:0;margin-top:8px;border:1px solid var(--line);border-radius:999px;width:fit-content;overflow:hidden;">
+                  <button onClick="{{ i.onDec }}" style="background:none;border:none;width:28px;height:28px;cursor:pointer;color:var(--ink);font-size:16px;line-height:1;">−</button>
+                  <span style="min-width:24px;text-align:center;font-size:13px;font-family:var(--font-body);">{{ i.qty }}</span>
+                  <button onClick="{{ i.onInc }}" style="background:none;border:none;width:28px;height:28px;cursor:pointer;color:var(--ink);font-size:16px;line-height:1;">+</button>
+                </div>
+              </div>
+              <button onClick="{{ i.onRemove }}" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;align-self:flex-start;" style-hover="color:var(--ink);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              </button>
+            </div>
+          </sc-for>
+
+          <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:20px 0 10px;font-family:var(--font-body);">Tipo de entrega</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <button onClick="{{ setRetiro }}" style="{{ retiroStyle }}">
+              <span style="{{ retiroRadio }}"></span>
+              <span style="flex:1;text-align:left;"><span style="font-weight:700;font-size:13.5px;">Retiro en punto de entrega</span><br><span style="font-size:12px;color:var(--muted);">Coordinamos lugar y horario por WhatsApp</span></span>
+              <span style="font-weight:700;font-size:12.5px;color:var(--ink);white-space:nowrap;">Gratis</span>
+            </button>
+            <button onClick="{{ setEnvio }}" style="{{ envioStyle }}">
+              <span style="{{ envioRadio }}"></span>
+              <span style="flex:1;text-align:left;"><span style="font-weight:700;font-size:13.5px;">Envío a domicilio</span><br><span style="font-size:12px;color:var(--muted);">Costo a coordinar según la dirección</span></span>
+              <span style="font-weight:700;font-size:12.5px;color:var(--ink);white-space:nowrap;">A coordinar</span>
+            </button>
+          </div>
+          <sc-if value="{{ coEnvio }}" hint-placeholder-val="{{ false }}">
+            <input value="{{ coAddr }}" onInput="{{ onCoAddr }}" placeholder="Dirección de envío" style="width:100%;margin-top:10px;border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;font-size:13.5px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+          </sc-if>
+
+          <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:20px 0 10px;font-family:var(--font-body);">Método de pago</div>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <button onClick="{{ setEfectivo }}" style="{{ efectivoStyle }}">
+              <span style="{{ efectivoRadio }}"></span>
+              <span style="flex:1;text-align:left;"><span style="font-weight:700;font-size:13.5px;">Efectivo</span></span>
+              <span style="font-weight:700;font-size:12.5px;color:var(--ink);white-space:nowrap;">Sin recargo</span>
+            </button>
+            <button onClick="{{ setTarjeta }}" style="{{ tarjetaStyle }}">
+              <span style="{{ tarjetaRadio }}"></span>
+              <span style="flex:1;text-align:left;"><span style="font-weight:700;font-size:13.5px;">Tarjeta / Mercado Pago</span></span>
+              <span style="font-weight:700;font-size:12.5px;color:var(--ink);white-space:nowrap;">+10%</span>
+            </button>
+          </div>
+
+          <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:20px 0 10px;font-family:var(--font-body);">Tus datos</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <input value="{{ coName }}" onInput="{{ onCoName }}" placeholder="Nombre y apellido" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;font-size:13.5px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+            <input type="tel" value="{{ coPhone }}" onInput="{{ onCoPhone }}" placeholder="Teléfono" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:11px 13px;font-size:13.5px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+          </div>
+
+          <sc-if value="{{ hasCoError }}" hint-placeholder-val="{{ false }}">
+            <div style="color:#c0392b;font-size:12.5px;margin-top:12px;font-family:var(--font-body);">{{ coError }}</div>
+          </sc-if>
+          <div style="height:8px;"></div>
+        </sc-if>
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:80px 0;text-align:center;color:var(--muted);font-family:var(--font-body);font-size:14px;">Tu carrito está vacío.</div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:18px 24px;border-top:1px solid var(--line);">
+          <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;font-family:var(--font-body);">
+            <span>Subtotal</span><span>{{ coSubtotalLabel }}</span>
+          </div>
+          <sc-if value="{{ coHasSurcharge }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:5px;font-family:var(--font-body);">
+              <span>Recargo tarjeta</span><span>{{ coSurchargeLabel }}</span>
+            </div>
+          </sc-if>
+          <div style="display:flex;justify-content:space-between;margin:8px 0 16px;font-size:15px;color:var(--ink);font-family:var(--font-body);">
+            <span style="font-weight:700;">Total</span><span style="font-weight:700;">{{ coTotalLabel }}</span>
+          </div>
+          <button onClick="{{ placeOrder }}" style="width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:14px;font-size:13.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.88;">Hacé tu pedido</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ coDone }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:18px 24px;border-top:1px solid var(--line);">
+          <button onClick="{{ finishCheckout }}" style="width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:14px;font-size:13.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.9;">Seguir comprando</button>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- MOBILE MENU DRAWER -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeMenu }}" style="position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:92;"></div>
+    <div style="position:fixed;top:0;left:0;bottom:0;width:min(330px,86vw);background:var(--surface);z-index:93;display:flex;flex-direction:column;box-shadow:12px 0 40px rgba(0,0,0,.18);padding:22px;overflow-y:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:7px;">
+          <span style="font-family:'Newsreader',serif;font-weight:600;font-size:22px;color:var(--ink);line-height:1;border-bottom:2px solid var(--accent);padding-bottom:2px;">Market</span>
+          <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:13px;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent);padding:2px 7px;border-radius:5px;">POSTA</span>
+        </div>
+        <button onClick="{{ closeMenu }}" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+        </button>
+      </div>
+      <sc-if value="{{ isLogged }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:14.5px;color:var(--ink);font-family:var(--font-body);margin-bottom:12px;">Hola, <b>{{ userLabel }}</b> 👋</div>
+        <button onClick="{{ logout }}" style="width:100%;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:var(--radius);padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-body);">Cerrar sesión</button>
+      </sc-if>
+      <sc-if value="{{ notLogged }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ openSignup }}" style="width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-body);margin-bottom:10px;">Crear cuenta</button>
+        <button onClick="{{ openLogin }}" style="width:100%;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:var(--radius);padding:13px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font-body);">Ingresar</button>
+      </sc-if>
+      <div style="height:1px;background:var(--line);margin:24px 0;"></div>
+      <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-family:var(--font-body);">Categorías</div>
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+        <button onClick="{{ n.onClick }}" style="background:none;border:none;text-align:left;padding:11px 0;font-size:16px;color:var(--ink);cursor:pointer;font-family:var(--font-body);border-bottom:1px solid var(--line);">{{ n.label }}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- AUTH MODAL -->
+  <sc-if value="{{ authOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeAuth }}" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:96;display:flex;align-items:center;justify-content:center;padding:20px;">
+      <div onClick="{{ stop }}" style="background:var(--surface);border-radius:var(--radius);width:min(420px,100%);padding:30px;box-shadow:0 24px 64px rgba(0,0,0,.32);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="font-family:var(--font-display);font-size:27px;color:var(--ink);line-height:1.15;white-space:nowrap;">{{ authTitle }}</div>
+          <button onClick="{{ closeAuth }}" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;margin:-4px -4px 0 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+          </button>
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin:4px 0 22px;font-family:var(--font-body);">Soluciones para el día a día</div>
+
+        <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px;font-family:var(--font-body);">Nombre y apellido</label>
+          <input value="{{ fName }}" onInput="{{ onAuthName }}" placeholder="Tu nombre completo" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);margin-bottom:14px;box-sizing:border-box;" style-focus="border-color:var(--accent);">
+        </sc-if>
+
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px;font-family:var(--font-body);">Mail</label>
+        <input type="email" value="{{ fEmail }}" onInput="{{ onAuthEmail }}" placeholder="tunombre@mail.com" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);margin-bottom:14px;box-sizing:border-box;" style-focus="border-color:var(--accent);">
+
+        <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px;font-family:var(--font-body);">Celular</label>
+          <input type="tel" value="{{ fPhone }}" onInput="{{ onAuthPhone }}" placeholder="11 2345 6789" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);margin-bottom:14px;box-sizing:border-box;" style-focus="border-color:var(--accent);">
+        </sc-if>
+
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:6px;font-family:var(--font-body);">Clave</label>
+        <input type="password" value="{{ fPass }}" onInput="{{ onAuthPass }}" placeholder="••••••" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+
+        <sc-if value="{{ hasAuthError }}" hint-placeholder-val="{{ false }}">
+          <div style="color:#c0392b;font-size:13px;margin-top:10px;font-family:var(--font-body);">{{ authError }}</div>
+        </sc-if>
+
+        <button onClick="{{ submitAuth }}" style="width:100%;margin-top:20px;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:14px;font-size:14px;font-weight:700;letter-spacing:.03em;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.9;">{{ authCta }}</button>
+        <button onClick="{{ switchAuthMode }}" style="width:100%;margin-top:12px;background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:var(--font-body);" style-hover="color:var(--ink);">{{ switchLabel }}</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ADMIN GATE -->
+  <sc-if value="{{ adminGateOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeAdminGate }}" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:97;display:flex;align-items:center;justify-content:center;padding:20px;">
+      <div onClick="{{ stop }}" style="background:var(--surface);border-radius:var(--radius);width:min(360px,100%);padding:30px;box-shadow:0 24px 64px rgba(0,0,0,.32);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div style="font-family:var(--font-display);font-size:24px;color:var(--ink);line-height:1.15;">Acceso admin</div>
+          <button onClick="{{ closeAdminGate }}" style="background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;margin:-4px -4px 0 0;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+          </button>
+        </div>
+        <div style="font-size:13.5px;color:var(--muted);margin-top:8px;font-family:var(--font-body);">Ingresá la clave para administrar la tienda.</div>
+        <input type="password" value="{{ adminPass }}" onInput="{{ onAdminPass }}" onKeyDown="{{ onAdminPassKey }}" placeholder="Clave" autoFocus="{{ true }}" style="width:100%;margin-top:18px;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+        <sc-if value="{{ hasAdminGateError }}" hint-placeholder-val="{{ false }}">
+          <div style="color:#b3413a;font-size:12.5px;margin-top:8px;font-family:var(--font-body);">{{ adminGateError }}</div>
+        </sc-if>
+        <button onClick="{{ submitAdminGate }}" style="width:100%;margin-top:20px;background:var(--accent);color:var(--accent-ink);border:none;border-radius:var(--radius);padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-body);" style-hover="opacity:.9;">Entrar</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ADMIN PANEL -->
+  <sc-if value="{{ adminOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;background:var(--bg);z-index:98;overflow-y:auto;">
+      <div style="position:sticky;top:0;background:var(--ink);color:var(--bg);padding:15px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;z-index:2;">
+        <div style="font-family:var(--font-display);font-size:21px;display:flex;align-items:center;gap:10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.92 1.06V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 8 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3.4 15H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 11 3.09V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1.82 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9z"></path></svg>
+          Panel de administración
+        </div>
+        <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap;">
+          <button onClick="{{ addItem }}" style="background:var(--bg);color:var(--ink);border:none;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);">+ Producto</button>
+          <button onClick="{{ exportCatalog }}" style="background:transparent;color:var(--bg);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);">Descargar JSON</button>
+          <button onClick="{{ resetCatalog }}" style="background:transparent;color:var(--bg);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);">Restaurar</button>
+          <button onClick="{{ closeAdmin }}" style="background:transparent;color:var(--bg);border:none;cursor:pointer;padding:6px;display:flex;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        </div>
+      </div>
+
+      <div style="max-width:1080px;margin:0 auto;padding:26px 22px 90px;">
+        <div style="background:var(--tint);border-radius:var(--radius);padding:16px 18px;font-size:13px;color:var(--ink);line-height:1.55;margin-bottom:26px;font-family:var(--font-body);">
+          <b>Cómo funciona:</b> editá precios, textos y fotos acá. Los cambios se guardan en este navegador al instante y ya se ven en la tienda. Las fotos se recortan solas al cuadrado. Para que también aparezcan en el sitio publicado en Netlify y en los links compartidos, tocá <b>Descargar JSON</b> y pasame ese archivo + las fotos para dejarlas fijas en el sitio.
+        </div>
+
+        <div style="font-family:var(--font-display);font-size:20px;color:var(--ink);margin-bottom:14px;">Productos</div>
+        <sc-for list="{{ adminItems }}" as="a" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:104px 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;align-items:start;">
+            <label style="position:relative;width:104px;height:104px;border-radius:var(--radius);background:var(--tint);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;text-align:center;">
+              <sc-if value="{{ a.hasImg }}" hint-placeholder-val="{{ false }}">{{ a.imgNode }}</sc-if>
+              <sc-if value="{{ a.noImg }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;color:var(--muted);font-family:var(--font-body);line-height:1.4;">+ Subir<br>foto</span></sc-if>
+              <input type="file" accept="image/*" onChange="{{ a.onPhoto }}" style="display:none;">
+            </label>
+            <div style="display:flex;flex-direction:column;gap:10px;min-width:0;">
+              <input value="{{ a.name }}" onInput="{{ a.onName }}" placeholder="Nombre del producto" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;font-size:14px;font-weight:600;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <div style="position:relative;">
+                  <select value="{{ a.cat }}" onChange="{{ a.onCat }}" style="appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:var(--radius);padding:9px 32px 9px 12px;font-size:13px;cursor:pointer;font-family:var(--font-body);">
+                    <sc-for list="{{ adminCats }}" as="c" hint-placeholder-count="4"><option value="{{ c.value }}">{{ c.label }}</option></sc-for>
+                  </select>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:var(--radius);padding:0 12px;background:var(--bg);">
+                  <span style="font-size:13px;color:var(--muted);font-family:var(--font-body);">$ Precio</span>
+                  <input type="number" value="{{ a.price }}" onInput="{{ a.onPrice }}" style="width:90px;border:none;background:transparent;padding:9px 0;font-size:13px;color:var(--ink);outline:none;font-family:var(--font-body);">
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:var(--radius);padding:0 12px;background:var(--bg);">
+                  <span style="font-size:13px;color:var(--muted);font-family:var(--font-body);">$ Antes</span>
+                  <input type="number" value="{{ a.old }}" onInput="{{ a.onOld }}" placeholder="—" style="width:80px;border:none;background:transparent;padding:9px 0;font-size:13px;color:var(--ink);outline:none;font-family:var(--font-body);">
+                </div>
+                <button onClick="{{ a.onDelete }}" style="margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:var(--radius);padding:8px 12px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font-body);" style-hover="color:#c0392b;border-color:#c0392b;">Eliminar</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+
+        <div style="font-family:var(--font-display);font-size:20px;color:var(--ink);margin:34px 0 14px;">Textos de la portada</div>
+        <sc-for list="{{ adminSlides }}" as="s" hint-placeholder-count="3">
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px;">
+            <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-family:var(--font-body);">Diapositiva {{ s.n }}</div>
+            <div style="display:flex;gap:14px;align-items:flex-start;">
+              <label style="position:relative;width:88px;height:88px;flex-shrink:0;border-radius:var(--radius);background:var(--tint);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;text-align:center;">
+                <sc-if value="{{ s.hasImg }}" hint-placeholder-val="{{ false }}">{{ s.imgNode }}</sc-if>
+                <sc-if value="{{ s.noImg }}" hint-placeholder-val="{{ true }}"><span style="font-size:11px;color:var(--muted);font-family:var(--font-body);line-height:1.3;">+ Subir<br>foto</span></sc-if>
+                <input type="file" accept="image/*" onChange="{{ s.onPhoto }}" style="display:none;">
+              </label>
+              <div style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;">
+            <input value="{{ s.title }}" onInput="{{ s.onTitle }}" placeholder="Título" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;font-size:15px;font-weight:600;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+            <input value="{{ s.sub }}" onInput="{{ s.onSub }}" placeholder="Subtítulo" style="width:100%;border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;font-size:13.5px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+              <input value="{{ s.cta }}" onInput="{{ s.onCta }}" placeholder="Texto del botón" style="flex:1;min-width:160px;border:1px solid var(--line);border-radius:var(--radius);padding:9px 12px;font-size:13px;color:var(--ink);background:var(--bg);outline:none;font-family:var(--font-body);box-sizing:border-box;" style-focus="border-color:var(--accent);">
+              <div style="position:relative;">
+                <select value="{{ s.cat }}" onChange="{{ s.onCat }}" style="appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:var(--radius);padding:9px 32px 9px 12px;font-size:13px;cursor:pointer;font-family:var(--font-body);">
+                  <sc-for list="{{ s.catOptions }}" as="co" hint-placeholder-count="5"><option value="{{ co.value }}">{{ co.label }}</option></sc-for>
+                </select>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </div>
+            <div style="font-size:11.5px;color:var(--muted);font-family:var(--font-body);">El botón lleva a la categoría elegida arriba.</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- TOAST -->
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:13px 22px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:95;font-family:var(--font-body);box-shadow:0 10px 30px rgba(0,0,0,.25);animation:toastUp .25s ease;display:flex;align-items:center;gap:9px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      {{ toast }}
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;brand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;piola&quot;,&quot;joya&quot;,&quot;resuelto&quot;],&quot;default&quot;:&quot;resuelto&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { brand:null, cat:'Todos', query:'', sort:'destacados', maxPrice:90000, cart:[], cartOpen:false, toast:null, heroIndex:0,
+    isMobile:false, menuOpen:false, filtersOpen:false,
+    authOpen:false, authMode:'login', fName:'', fEmail:'', fPhone:'', fPass:'', authError:'', user:null, items:null, slides:null, adminOpen:false,
+    adminAuthed:false, adminGateOpen:false, adminPass:'', adminGateError:'',
+    coMethod:'retiro', coPay:'efectivo', coDone:false, coName:'', coPhone:'', coAddr:'', coNotes:'', coError:'', lastOrder:null };
+
+  componentDidMount(){
+    this._iv = setInterval(()=> this.setState(s=>({ heroIndex:(s.heroIndex+1)%3 })), 5000);
+    this._onResize = ()=> this.setState({ isMobile: window.innerWidth < 820 });
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+    try { const u = JSON.parse(localStorage.getItem('tienda_user')||'null'); if(u) this.setState({ user:u }); } catch(e){}
+    try { if(sessionStorage.getItem('tienda_admin_ok')==='1') this.setState({ adminAuthed:true }); } catch(e){}
+    try { localStorage.removeItem('tienda_catalog_v2'); localStorage.removeItem('tienda_hero_v2'); localStorage.removeItem('tienda_catalog'); localStorage.removeItem('tienda_hero'); } catch(e){}
+    // Catalogo publicado: UNICA fuente de verdad (lo edita Decap CMS en /admin/). Sin edicion local.
+    fetch('./products.json', {cache:'no-store'}).then(r=> r.ok ? r.json() : null).then(d=>{
+      if(!d) return;
+      if(Array.isArray(d.items) && d.items.length) this.setState({ items:d.items });
+      if(Array.isArray(d.slides) && d.slides.length) this.setState({ slides:this.SLIDES.map((s,i)=>({ ...s, ...(d.slides[i]||{}) })) });
+    }).catch(()=>{});
+  }
+  componentWillUnmount(){ clearInterval(this._iv); clearTimeout(this._tt); if(this._onResize) window.removeEventListener('resize', this._onResize); }
+
+  THEMES = {
+    piola:{ name:'PIOLA', tagline:'Soluciones piolas para todos los días. Lo que tu rutina necesita, a buen precio.',
+      logo:{fontSize:'30px',letterSpacing:'.04em',textTransform:'uppercase'},
+      vars:{ '--ink':'#0d0d0d','--bg':'#ffffff','--surface':'#ffffff','--muted':'#6f6f6f','--line':'#e6e6e6','--tint':'#f4f4f4','--accent':'#0d0d0d','--accent-ink':'#ffffff','--radius':'4px','--font-display':"'Anton', sans-serif",'--font-body':"'Archivo', sans-serif",'--shadow':'0 1px 0 #e6e6e6' } },
+    joya:{ name:'joya', tagline:'Todo joya para tu día. Productos que resuelven, con onda y a buen precio.',
+      logo:{fontSize:'36px',letterSpacing:'-.01em',textTransform:'none',fontWeight:800},
+      vars:{ '--ink':'#3a322e','--bg':'#fdf7f4','--surface':'#ffffff','--muted':'#a3958c','--line':'#f1e7e0','--tint':'#f8efe9','--accent':'#ef9a86','--accent-ink':'#56312a','--radius':'18px','--font-display':"'Baloo 2', cursive",'--font-body':"'Plus Jakarta Sans', sans-serif",'--shadow':'0 1px 0 #f1e7e0' } },
+    resuelto:{ name:'Market Posta', tagline:'Market Posta: soluciones para el día a día, a buen precio.',
+      logo:{fontSize:'30px',letterSpacing:'.005em',textTransform:'none',fontWeight:500},
+      vars:{ '--ink':'#2c2824','--bg':'#f1ece3','--surface':'#fbf9f5','--muted':'#8a8175','--line':'#e3dccf','--tint':'#e9e1d3','--accent':'#b06a4c','--accent-ink':'#fbf9f5','--radius':'10px','--font-display':"'Newsreader', serif",'--font-body':"'Karla', sans-serif",'--shadow':'0 1px 0 #e3dccf' } },
+  };
+
+  BASE = [
+    {id:1, cat:'Mascotas', name:'Comedero lento antiansiedad', price:12900, colors:['#1c1c1c','#7fb4d4','#e8a0b0']},
+    {id:2, cat:'Mascotas', name:'Cepillo quita pelos 2 en 1', price:8490, old:10900},
+    {id:3, cat:'Mascotas', name:'Fuente de agua para gatos', price:34900, colors:['#ffffff','#bfe0d2']},
+    {id:4, cat:'Tecnología para hogar', name:'Auriculares inalámbricos TWS', price:42900, colors:['#1c1c1c','#ffffff']},
+    {id:5, cat:'Tecnología para hogar', name:'Cargador magnético 3 en 1', price:28900, old:33900},
+    {id:6, cat:'Tecnología para hogar', name:'Mini proyector portátil', price:89900},
+    {id:7, cat:'Seguridad familiar', name:'Cámara de seguridad exterior con alerta al celular', price:31400, colors:['#1c1c1c','#ffffff']},
+    {id:8, cat:'Seguridad familiar', name:'Cerradura inteligente con huella y app', price:54200, old:59900},
+    {id:9, cat:'Seguridad familiar', name:'Kit de sensores de puertas y ventanas', price:22900},
+    {id:10, cat:'Turismo de bienestar', name:'Día de spa y termas para dos personas', price:45000, colors:['#bfe0d2','#ef9a86']},
+    {id:11, cat:'Turismo de bienestar', name:'Retiro de fin de semana con circuito de aguas', price:89900, old:99900},
+    {id:12, cat:'Turismo de bienestar', name:'Bono de masajes relajantes x3 sesiones', price:38900},
+  ];
+
+  CATS = ['Mascotas','Tecnología para hogar','Seguridad familiar','Turismo de bienestar'];
+
+  SLIDES = [
+    {kicker:'Tu tienda de soluciones', title:'Todo lo que tu día necesita', sub:'Mascotas, tecnología, seguridad y bienestar. Buenas ideas, a buen precio.', cta:'Ver productos', cat:'Todos'},
+    {kicker:'Que la casa cuide a los tuyos', title:'Seguridad familiar al alcance', sub:'Cámaras, alarmas y cerraduras para dormir tranquilo.', cta:'Ver seguridad', cat:'Seguridad familiar'},
+    {kicker:'Bajá un cambio', title:'Escapadas de bienestar', sub:'Termas, spa y descanso para regalar o regalarte.', cta:'Ver bienestar', cat:'Turismo de bienestar'},
+  ];
+
+  getBrand(){ return this.state.brand ?? this.props.brand ?? 'resuelto'; }
+  formatARS(n){ return '$' + Math.round(n).toLocaleString('es-AR'); }
+
+  getItems(){ return this.state.items || this.BASE; }
+  getSlides(){ return this.state.slides || this.SLIDES; }
+  saveItems(items){ this.setState({items}); try { localStorage.setItem('tienda_catalog_v2', JSON.stringify(items)); } catch(e){ this.setState({toast:'Sin espacio para guardar. Usá menos fotos o más livianas.'}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),2600); } }
+  updateItem(id,patch){ this.saveItems(this.getItems().map(p=>p.id===id?{...p,...patch}:p)); }
+  addItem(){ const items=this.getItems(); const id=(items.reduce((m,p)=>Math.max(m,p.id),0))+1; this.saveItems([{id,cat:'Mascotas',name:'Nuevo producto',price:9900},...items]); }
+  deleteItem(id){ this.saveItems(this.getItems().filter(p=>p.id!==id)); }
+  resetCatalog(){ this.saveItems(this.BASE); this.setState({slides:this.SLIDES}); try{ localStorage.setItem('tienda_hero_v2', JSON.stringify(this.SLIDES)); }catch(e){} }
+  updateSlide(i,patch){ const sl=this.getSlides().map((s,idx)=>idx===i?{...s,...patch}:s); this.setState({slides:sl}); try{ localStorage.setItem('tienda_hero_v2', JSON.stringify(sl)); }catch(e){} }
+  exportCatalog(){ try{ const blob=new Blob([JSON.stringify({items:this.getItems(),slides:this.getSlides()},null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='catalogo.json'; a.click(); }catch(e){} }
+  onSlidePhoto(i, files){ const file=files&&files[0]; if(!file) return; const reader=new FileReader(); reader.onload=()=>{ const img=new Image(); img.onload=()=>{ const W=1400; const scale=Math.min(1, W/img.width); const w=Math.round(img.width*scale), h=Math.round(img.height*scale); const c=document.createElement('canvas'); c.width=w; c.height=h; const ctx=c.getContext('2d'); ctx.drawImage(img,0,0,w,h); let data; try{ data=c.toDataURL('image/jpeg',0.85); }catch(e){ return; } this.updateSlide(i,{img:data}); this.setState({toast:'Foto actualizada ✓'}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),1500); }; img.src=reader.result; }; reader.readAsDataURL(file); }
+  onPhoto(id, files){ const file=files&&files[0]; if(!file) return; const reader=new FileReader(); reader.onload=()=>{ const img=new Image(); img.onload=()=>{ const S=800; const c=document.createElement('canvas'); c.width=S; c.height=S; const ctx=c.getContext('2d'); const scale=Math.max(S/img.width,S/img.height); const w=img.width*scale, h=img.height*scale; ctx.fillStyle='#fff'; ctx.fillRect(0,0,S,S); ctx.drawImage(img,(S-w)/2,(S-h)/2,w,h); let data; try{ data=c.toDataURL('image/jpeg',0.82); }catch(e){ return; } this.updateItem(id,{img:data}); this.setState({toast:'Foto actualizada ✓'}); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),1500); }; img.src=reader.result; }; reader.readAsDataURL(file); }
+
+  icon(cat, size){
+    const E = React.createElement;
+    const base = {width:size, height:size, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.5, strokeLinecap:'round', strokeLinejoin:'round'};
+    if(cat==='Tecnología para hogar') return E('svg', base, E('path',{key:1, d:'M2 13.2 H7.2 L9.4 6.4 L13 18.5 L15.6 13.2 H22'}));
+    if(cat==='Seguridad familiar') return E('svg', base, E('path',{key:1, d:'M12 2 3 6v6c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V6z'}));
+    if(cat==='Turismo de bienestar') return E('svg', base, E('path',{key:1,d:'M3 13.5c2.8 1.8 4.7 1.8 6.9 0s4.7-1.8 6.9 0 4.7 1.8 6.9 0'}), E('path',{key:2,d:'M3 8.1c2.8 1.8 4.7 1.8 6.9 0s4.7-1.8 6.9 0 4.7 1.8 6.9 0'}));
+    return E('svg', base,
+      E('ellipse',{key:'p',cx:12,cy:15.6,rx:4.3,ry:3.3}),
+      E('circle',{key:'t1',cx:6.4,cy:10,r:1.7}),
+      E('circle',{key:'t2',cx:10,cy:7.1,r:1.7}),
+      E('circle',{key:'t3',cx:14,cy:7.1,r:1.7}),
+      E('circle',{key:'t4',cx:17.6,cy:10,r:1.7}));
+  }
+  imgEl(src, alt){ return src ? React.createElement('img',{src, alt:alt||'', style:{position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', objectPosition:'center'}}) : null; }
+  trustIcon(kind){
+    const E = React.createElement;
+    const b = {width:26, height:26, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.5, strokeLinecap:'round', strokeLinejoin:'round'};
+    if(kind==='ship') return E('svg', b, E('rect',{key:1,x:1,y:6,width:13,height:10,rx:1}), E('path',{key:2,d:'M14 9h4l3 3v4h-7z'}), E('circle',{key:3,cx:6,cy:18,r:1.6}), E('circle',{key:4,cx:18,cy:18,r:1.6}));
+    if(kind==='card') return E('svg', b, E('rect',{key:1,x:2,y:5,width:20,height:14,rx:2}), E('line',{key:2,x1:2,y1:10,x2:22,y2:10}));
+    if(kind==='return') return E('svg', b, E('polyline',{key:1,points:'3 7 8 7 8 2'}), E('path',{key:2,d:'M8 7a8 8 0 1 1-3 6'}));
+    return E('svg', b, E('path',{key:1,d:'M12 2 3 6v6c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V6z'}), E('polyline',{key:2,points:'9 12 11 14 15 9'}));
+  }
+
+  addToCart(p){
+    this.setState(s=>{
+      const ex = s.cart.find(c=>c.id===p.id);
+      const cart = ex ? s.cart.map(c=>c.id===p.id?{...c,qty:c.qty+1}:c) : [...s.cart, {id:p.id, name:p.name, price:p.price, cat:p.cat, img:p.img||null, qty:1}];
+      return { cart, toast: p.name + ' · agregado' };
+    });
+    clearTimeout(this._tt); this._tt = setTimeout(()=>this.setState({toast:null}), 1900);
+  }
+  changeQty(id,d){ this.setState(s=>({ cart: s.cart.map(c=>c.id===id?{...c,qty:c.qty+d}:c).filter(c=>c.qty>0) })); }
+  removeFromCart(id){ this.setState(s=>({ cart: s.cart.filter(c=>c.id!==id) })); }
+  clearAll(){ this.setState({ cat:'Todos', query:'', sort:'destacados', maxPrice:90000 }); }
+  surchargeFor(pay, subtotal){ return pay==='tarjeta' ? Math.round(subtotal*0.10) : 0; }
+
+  setMethod(method){ this.setState({ coMethod:method, coError:'' }); }
+  setPay(pay){ this.setState({ coPay:pay, coError:'' }); }
+  placeOrder(){
+    if(!this.state.user){ this.setState({ authOpen:true, authMode:'login', authError:'Ingresá para finalizar tu compra.' }); return; }
+    const s = this.state;
+    if(!s.coName.trim()) return this.setState({ coError:'Ingresá tu nombre y apellido.' });
+    if(s.coPhone.replace(/\D/g,'').length < 8) return this.setState({ coError:'Ingresá un teléfono válido.' });
+    if(s.coMethod==='envio' && !s.coAddr.trim()) return this.setState({ coError:'Ingresá la dirección de envío.' });
+    const subtotal = s.cart.reduce((a,c)=>a+c.qty*c.price,0);
+    const surcharge = this.surchargeFor(s.coPay, subtotal);
+    const total = subtotal + surcharge;
+    const num = 'AP-' + String(Date.now()).slice(-6);
+    const order = { num, email:(s.user&&s.user.email)||'', name:s.coName, phone:s.coPhone,
+      method:s.coMethod, pay:s.coPay, addr:s.coAddr, notes:s.coNotes,
+      items:s.cart.map(c=>({ name:c.name, qty:c.qty, price:c.price })), subtotal, surcharge, total, at:Date.now() };
+    try { const o = JSON.parse(localStorage.getItem('tienda_orders')||'[]'); o.push(order); localStorage.setItem('tienda_orders', JSON.stringify(o)); } catch(e){}
+    this.setState({ lastOrder:order, coDone:true, cart:[], coError:'' });
+  }
+  finishCheckout(){
+    this.setState({ cartOpen:false, coDone:false, coAddr:'', coNotes:'', coError:'', lastOrder:null, toast:'¡Gracias por tu compra! ✓' });
+    clearTimeout(this._tt); this._tt = setTimeout(()=>this.setState({toast:null}), 2400);
+  }
+  _users(){ try { return JSON.parse(localStorage.getItem('tienda_users')||'[]'); } catch(e){ return []; } }
+  openAuth(mode){ this.setState({ authOpen:true, authMode:mode, authError:'', fName:'', fEmail:'', fPhone:'', fPass:'', menuOpen:false }); }
+  closeAuth(){ this.setState({ authOpen:false, authError:'' }); }
+  ADMIN_KEY = '';
+  requestAdmin(){ if(this.state.adminAuthed) this.setState({ adminOpen:true, menuOpen:false }); else this.setState({ adminGateOpen:true, adminPass:'', adminGateError:'', menuOpen:false }); }
+  closeAdminGate(){ this.setState({ adminGateOpen:false, adminGateError:'' }); }
+  submitAdminGate(){
+    if(this.state.adminPass === this.ADMIN_KEY){
+      try{ sessionStorage.setItem('tienda_admin_ok','1'); }catch(e){}
+      this.setState({ adminAuthed:true, adminGateOpen:false, adminOpen:true, adminPass:'', adminGateError:'' });
+    } else {
+      this.setState({ adminGateError:'Clave incorrecta.' });
     }
-  </script>
+  }
+  logout(){ try{ localStorage.removeItem('tienda_user'); }catch(e){} this.setState({ user:null, toast:'Sesión cerrada' }); clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),1600); }
+  submitAuth(){
+    const name = (this.state.fName||'').trim();
+    const email = (this.state.fEmail||'').trim().toLowerCase();
+    const phone = (this.state.fPhone||'').trim();
+    const pass = this.state.fPass||'';
+    const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    if(this.state.authMode==='signup'){
+      if(!name) return this.setState({authError:'Ingresá tu nombre y apellido.'});
+      if(!emailOk) return this.setState({authError:'Ingresá un mail válido.'});
+      if(phone.replace(/\D/g,'').length<8) return this.setState({authError:'Ingresá un celular válido.'});
+      if(pass.length<4) return this.setState({authError:'La clave debe tener al menos 4 caracteres.'});
+      const users = this._users();
+      if(users.some(u=>u.email===email)) return this.setState({authError:'Ya existe una cuenta con ese mail. Probá ingresar.'});
+      const user = { name, email, phone, pass };
+      users.push(user); try { localStorage.setItem('tienda_users', JSON.stringify(users)); localStorage.setItem('tienda_user', JSON.stringify(user)); } catch(e){}
+      this.setState({ user, authOpen:false, toast:'¡Cuenta creada! Hola '+name });
+    } else {
+      if(!emailOk) return this.setState({authError:'Ingresá un mail válido.'});
+      const found = this._users().find(u=>u.email===email && u.pass===pass);
+      if(!found) return this.setState({authError:'Mail o clave incorrectos.'});
+      try { localStorage.setItem('tienda_user', JSON.stringify(found)); } catch(e){}
+      this.setState({ user:found, authOpen:false, toast:'¡Hola de nuevo, '+email+'!' });
+    }
+    clearTimeout(this._tt); this._tt=setTimeout(()=>this.setState({toast:null}),2400);
+  }
+
+  renderVals(){
+    const brand = this.getBrand();
+    const t = this.THEMES[brand];
+    const themeStyle = { ...t.vars, background:'var(--bg)', color:'var(--ink)', fontFamily:'var(--font-body)', minHeight:'100vh' };
+    const { cat, query, sort, maxPrice, isMobile } = this.state;
+
+    const items = this.getItems();
+    const SL = this.getSlides();
+    // pipeline
+    let list = items.filter(p =>
+      (cat==='Todos' || p.cat===cat) &&
+      (p.price <= maxPrice) &&
+      (query.trim()==='' || p.name.toLowerCase().includes(query.trim().toLowerCase()))
+    );
+    if(sort==='precio_asc') list = [...list].sort((a,b)=>a.price-b.price);
+    else if(sort==='precio_desc') list = [...list].sort((a,b)=>b.price-a.price);
+    else if(sort==='nuevos') list = [...list].sort((a,b)=>b.id-a.id);
+
+    const products = list.map(p => ({
+      ...p, key:String(p.id), hasImg:!!p.img, noImg:!p.img, imgNode:this.imgEl(p.img,p.name),
+      priceLabel: this.formatARS(p.price),
+      oldPriceLabel: p.old ? this.formatARS(p.old) : '',
+      hasSale: !!p.old,
+      discountLabel: p.old ? '-' + Math.round((1 - p.price/p.old)*100) + '%' : '',
+      cuotaLabel: 'Hasta 3 cuotas sin interés',
+      icon: this.icon(p.cat, 58),
+      hasColors: !!(p.colors && p.colors.length),
+      swatches: (p.colors||[]).map((c,i)=>({ key:i, style:{ width:'14px', height:'14px', borderRadius:'999px', background:c, border:'1px solid rgba(0,0,0,.18)' } })),
+      onAdd: ()=>this.addToCart(p),
+    }));
+
+    // brand switcher buttons
+    const sw = (active)=>({ padding:'6px 16px', borderRadius:'999px', border:'1px solid', cursor:'pointer', fontSize:'13px', fontWeight:600, fontFamily:'var(--font-body)', transition:'all .15s', ...(active ? {background:'var(--bg)', color:'var(--ink)', borderColor:'var(--bg)'} : {background:'transparent', color:'var(--bg)', borderColor:'rgba(255,255,255,.4)'}) });
+    const brandBtns = [['piola','Piola'],['joya','joya'],['resuelto','Resuelto']].map(([id,label])=>({ key:id, label, onClick:()=>this.setState({brand:id}), style: sw(id===brand) }));
+
+    // nav + sidebar categories
+    const navStyle = (active)=>({ background:'none', border:'none', cursor:'pointer', padding:'0', fontSize:'13.5px', letterSpacing:'.04em', textTransform:'uppercase', fontFamily:'var(--font-body)', fontWeight: active?700:500, color: active?'var(--accent)':'var(--ink)' });
+    const navItems = this.CATS.map(c=>({ key:c, label:c, onClick:()=>this.setState({cat:c, query:'', menuOpen:false}), style: navStyle(cat===c) }));
+
+    const catStyle = (active)=>({ display:'flex', alignItems:'center', justifyContent:'space-between', background: active?'var(--tint)':'transparent', border:'none', borderRadius:'var(--radius)', padding:'9px 12px', cursor:'pointer', fontSize:'14px', fontFamily:'var(--font-body)', color: active?'var(--ink)':'var(--muted)', fontWeight: active?700:500, width:'100%', textAlign:'left' });
+    const countStyle = (active)=>({ fontSize:'12px', color: active?'var(--ink)':'var(--muted)', background:'var(--surface)', border:'1px solid var(--line)', borderRadius:'999px', padding:'1px 8px', fontFamily:'var(--font-body)' });
+    const catList = [{label:'Todos', count:items.length}, ...this.CATS.map(c=>({label:c, count:items.filter(p=>p.cat===c).length}))]
+      .map(o=>({ key:o.label, label:o.label, count:o.count, onClick:()=>this.setState({cat:o.label, query:''}), style: catStyle(cat===o.label), countStyle: countStyle(cat===o.label) }));
+
+    // hero
+    const slides = SL.map((s,i)=>{
+      const active = i===this.state.heroIndex;
+      return { key:i, kicker:s.kicker, title:s.title, sub:s.sub, cta:s.cta,
+        onClick:()=>this.setState({cat:s.cat, query:''}),
+        wrap:{ position: i===0?'relative':'absolute', inset: i===0?'auto':'0', display:'flex', alignItems:'center', backgroundImage: s.img ? `linear-gradient(90deg, var(--tint) 0%, var(--tint) 32%, rgba(244,244,244,.35) 55%, rgba(244,244,244,0) 78%), url('${s.img}')` : 'linear-gradient(115deg, var(--tint), var(--surface))', backgroundSize: s.img?'cover':'auto', backgroundPosition:'center', backgroundRepeat:'no-repeat', borderRight:'0', opacity: active?1:0, transition:'opacity .6s ease', pointerEvents: active?'auto':'none', minHeight:'inherit', width:'100%' },
+        kickerStyle:{ display:'inline-block', fontSize:'12px', letterSpacing:'.12em', textTransform:'uppercase', color:'var(--accent)', fontWeight:700, marginBottom:'14px', fontFamily:'var(--font-body)' },
+        titleStyle:{ fontFamily:'var(--font-display)', fontSize:'clamp(32px,5vw,60px)', lineHeight:1.02, color:'var(--ink)', margin:'0 0 16px' } };
+    });
+    const dots = SL.map((s,i)=>({ key:i, onClick:()=>this.setState({heroIndex:i}),
+      style:{ width: i===this.state.heroIndex?'26px':'9px', height:'9px', borderRadius:'999px', border:'none', cursor:'pointer', background: i===this.state.heroIndex?'var(--ink)':'rgba(0,0,0,.28)', transition:'all .25s', padding:0 } }));
+
+    // cart
+    const cart = this.state.cart;
+    const cartCount = cart.reduce((a,c)=>a+c.qty,0);
+    const cartTotal = cart.reduce((a,c)=>a+c.qty*c.price,0);
+    const cartItems = cart.map(c=>({ key:String(c.id), name:c.name, qty:c.qty, lineLabel:this.formatARS(c.price*c.qty), icon:this.icon(c.cat,28), hasImg:!!c.img, noImg:!c.img, imgNode:this.imgEl(c.img,c.name),
+      onInc:()=>this.changeQty(c.id,1), onDec:()=>this.changeQty(c.id,-1), onRemove:()=>this.removeFromCart(c.id) }));
+
+    const trust = [
+      {key:'s', icon:this.trustIcon('ship'), title:'Envíos a todo el país', sub:'Despacho en 24/48 hs'},
+      {key:'c', icon:this.trustIcon('card'), title:'3 cuotas sin interés', sub:'Con todas las tarjetas'},
+      {key:'r', icon:this.trustIcon('return'), title:'Cambios fáciles', sub:'Hasta 30 días'},
+      {key:'t', icon:this.trustIcon('trust'), title:'Compra protegida', sub:'Pago 100% seguro'},
+    ];
+
+    const anyFilter = cat!=='Todos' || maxPrice<90000 || query.trim()!=='' || sort!=='destacados';
+
+    const u = this.state.user;
+    const isLogged = !!u;
+    const headerRowStyle = { maxWidth:'1240px', margin:'0 auto', padding: isMobile?'13px 16px':'18px 24px', display: isMobile?'flex':'grid', gridTemplateColumns: isMobile?'none':'1fr auto 1fr', alignItems:'center', gap: isMobile?'12px':'24px', justifyContent: isMobile?'space-between':'initial' };
+    const catalogGridStyle = { display:'grid', gridTemplateColumns: isMobile?'1fr':'240px 1fr', gap: isMobile?'0':'34px', alignItems:'start' };
+    const sidebarStyle = { position: isMobile?'static':'sticky', top:'120px', display:(isMobile && !this.state.filtersOpen)?'none':'flex', flexDirection:'column', gap:'30px', marginBottom: isMobile?'26px':'0', paddingBottom: isMobile?'22px':'0', borderBottom: isMobile?'1px solid var(--line)':'none' };
+
+    // ---- checkout ----
+    const coMethod = this.state.coMethod, coPay = this.state.coPay;
+    const coSurcharge = this.surchargeFor(coPay, cartTotal);
+    const coTotal = cartTotal + coSurcharge;
+    const optBtn = (sel)=>({ display:'flex', alignItems:'center', gap:'13px', width:'100%', cursor:'pointer', border: sel?'2px solid var(--accent)':'1px solid var(--line)', background: sel?'var(--tint)':'var(--surface)', borderRadius:'var(--radius)', padding: sel?'12px 14px':'13px 15px', color:'var(--ink)', fontFamily:'var(--font-body)' });
+    const radioStyle = (sel)=>({ width:'18px', height:'18px', borderRadius:'999px', flexShrink:0, boxSizing:'border-box', border: sel?'5px solid var(--accent)':'2px solid var(--line)' });
+    const lo = this.state.lastOrder;
+    const payNames = { efectivo:'Efectivo', tarjeta:'Tarjeta / Mercado Pago' };
+    const methodNames = { retiro:'Retiro en punto de entrega', envio:'Envío a domicilio' };
+
+    return {
+      themeStyle, logoText:t.name, tagline:t.tagline,
+      coDone:this.state.coDone, coEnvio: coMethod==='envio',
+      setEnvio:()=>this.setMethod('envio'), setRetiro:()=>this.setMethod('retiro'),
+      envioStyle: optBtn(coMethod==='envio'), retiroStyle: optBtn(coMethod==='retiro'),
+      envioRadio: radioStyle(coMethod==='envio'), retiroRadio: radioStyle(coMethod==='retiro'),
+      setEfectivo:()=>this.setPay('efectivo'), setTarjeta:()=>this.setPay('tarjeta'),
+      efectivoStyle: optBtn(coPay==='efectivo'), tarjetaStyle: optBtn(coPay==='tarjeta'),
+      efectivoRadio: radioStyle(coPay==='efectivo'), tarjetaRadio: radioStyle(coPay==='tarjeta'),
+      coName:this.state.coName, coPhone:this.state.coPhone, coAddr:this.state.coAddr, coNotes:this.state.coNotes,
+      onCoName:(e)=>this.setState({coName:e.target.value}), onCoPhone:(e)=>this.setState({coPhone:e.target.value}),
+      onCoAddr:(e)=>this.setState({coAddr:e.target.value}), onCoNotes:(e)=>this.setState({coNotes:e.target.value}),
+      coSubtotalLabel:this.formatARS(cartTotal),
+      coHasSurcharge: coSurcharge>0, coSurchargeLabel:'+'+this.formatARS(coSurcharge), coTotalLabel:this.formatARS(coTotal),
+      placeOrder:()=>this.placeOrder(), finishCheckout:()=>this.finishCheckout(),
+      hasCoError: !!this.state.coError, coError:this.state.coError,
+      orderNum: lo?lo.num:'', orderEmail: lo?lo.email:'',
+      orderDelivery: lo ? (methodNames[lo.method] + (lo.method==='envio' && lo.addr ? (' · '+lo.addr) : '')) : '',
+      orderPay: lo ? (payNames[lo.pay]||'') : '',
+      orderTotalLabel: lo?this.formatARS(lo.total):'',
+      logoStyle:{ fontFamily:'var(--font-display)', color:'var(--ink)', lineHeight:1, ...t.logo },
+      logoStyleSm:{ fontFamily:'var(--font-display)', color:'var(--ink)', lineHeight:1, ...t.logo, fontSize:'26px' },
+      brandBtns, navItems, catList, slides, dots, trust,
+      query, onSearch:(e)=>this.setState({query:e.target.value}),
+      sort, onSort:(e)=>this.setState({sort:e.target.value}),
+      maxPrice, maxPriceLabel:this.formatARS(maxPrice), onPrice:(e)=>this.setState({maxPrice:Number(e.target.value)}),
+      sectionTitle: cat==='Todos' ? 'Productos' : cat,
+      countLabel: products.length + (products.length===1?' producto':' productos'),
+      products, hasProducts: products.length>0, noProducts: products.length===0,
+      anyFilter, clearFilters:()=>this.clearAll(),
+      heroNext:()=>this.setState(s=>({heroIndex:(s.heroIndex+1)%3})), heroPrev:()=>this.setState(s=>({heroIndex:(s.heroIndex+2)%3})),
+      openCart:()=>this.setState({cartOpen:true}), closeCart:()=>this.setState({cartOpen:false}), cartOpen:this.state.cartOpen,
+      cartCount, hasCart: cartCount>0, cartEmpty: cartCount===0 && !this.state.coDone,
+      cartBadgeStyle:{ position:'absolute', top:'-4px', right:'-6px', background:'var(--accent)', color:'var(--accent-ink)', fontSize:'10px', fontWeight:700, minWidth:'17px', height:'17px', borderRadius:'999px', display:'flex', alignItems:'center', justifyContent:'center', padding:'0 4px', fontFamily:'var(--font-body)' },
+      cartItems, cartTotalLabel:this.formatARS(cartTotal),
+      toast:this.state.toast,
+      isMobile, isDesktop:!isMobile, headerRowStyle, catalogGridStyle, sidebarStyle,
+      menuOpen:this.state.menuOpen, openMenu:()=>this.setState({menuOpen:true}), closeMenu:()=>this.setState({menuOpen:false}),
+      filtersOpen:this.state.filtersOpen, toggleFilters:()=>this.setState(s=>({filtersOpen:!s.filtersOpen})),
+      isLogged, notLogged:!isLogged, userLabel: u?(u.name || u.email.split('@')[0]):'',
+      openSignup:()=>this.openAuth('signup'), openLogin:()=>this.openAuth('login'), logout:()=>this.logout(),
+      authOpen:this.state.authOpen, isSignup:this.state.authMode==='signup', closeAuth:()=>this.closeAuth(),
+      authTitle: this.state.authMode==='signup'?'Crear cuenta':'Ingresar', authCta: this.state.authMode==='signup'?'Crear mi cuenta':'Ingresar',
+      authError:this.state.authError, hasAuthError:!!this.state.authError,
+      switchLabel: this.state.authMode==='signup'?'¿Ya tenés cuenta? Ingresá':'¿No tenés cuenta? Creá una',
+      switchAuthMode:()=>this.setState(s=>({authMode:s.authMode==='signup'?'login':'signup', authError:''})),
+      fName:this.state.fName, fEmail:this.state.fEmail, fPhone:this.state.fPhone, fPass:this.state.fPass,
+      onAuthName:(e)=>this.setState({fName:e.target.value}), onAuthEmail:(e)=>this.setState({fEmail:e.target.value}), onAuthPhone:(e)=>this.setState({fPhone:e.target.value}), onAuthPass:(e)=>this.setState({fPass:e.target.value}),
+      submitAuth:()=>this.submitAuth(), stop:(e)=>e.stopPropagation(),
+      adminOpen:this.state.adminOpen, openAdmin:()=>this.requestAdmin(), closeAdmin:()=>this.setState({adminOpen:false}),
+      adminGateOpen:this.state.adminGateOpen, closeAdminGate:()=>this.closeAdminGate(),
+      adminPass:this.state.adminPass, onAdminPass:(e)=>this.setState({adminPass:e.target.value, adminGateError:''}),
+      submitAdminGate:()=>this.submitAdminGate(), onAdminPassKey:(e)=>{ if(e.key==='Enter') this.submitAdminGate(); },
+      adminGateError:this.state.adminGateError, hasAdminGateError:!!this.state.adminGateError,
+      adminCats:this.CATS.map(c=>({key:c, label:c, value:c})), addItem:()=>this.addItem(), resetCatalog:()=>this.resetCatalog(), exportCatalog:()=>this.exportCatalog(),
+      adminItems: items.map(p=>({ key:String(p.id), name:p.name, cat:p.cat, price:p.price, old:p.old||'', hasImg:!!p.img, noImg:!p.img, imgNode:this.imgEl(p.img,p.name),
+        onName:(e)=>this.updateItem(p.id,{name:e.target.value}), onCat:(e)=>this.updateItem(p.id,{cat:e.target.value}),
+        onPrice:(e)=>this.updateItem(p.id,{price:Number(e.target.value)||0}), onOld:(e)=>this.updateItem(p.id,{old: e.target.value? Number(e.target.value): null}),
+        onPhoto:(e)=>this.onPhoto(p.id, e.target.files), onDelete:()=>this.deleteItem(p.id) })),
+      adminSlides: SL.map((s,i)=>({ key:i, n:String(i+1), title:s.title, sub:s.sub, cta:s.cta, cat:s.cat,
+        hasImg:!!s.img, noImg:!s.img, imgNode:this.imgEl(s.img,s.title), onPhoto:(e)=>this.onSlidePhoto(i, e.target.files),
+        catOptions:[{value:'Todos',label:'Todos'},...this.CATS.map(c=>({value:c,label:c}))],
+        onTitle:(e)=>this.updateSlide(i,{title:e.target.value}), onSub:(e)=>this.updateSlide(i,{sub:e.target.value}),
+        onCta:(e)=>this.updateSlide(i,{cta:e.target.value}), onCat:(e)=>this.updateSlide(i,{cat:e.target.value}) })),
+    };
+  }
+}
+</script>
 </body>
 </html>
