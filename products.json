@@ -85,7 +85,19 @@
       "cat": "Turismo de bienestar",
       "name": "Bono de masajes relajantes x3 sesiones",
       "price": 38900
-    }
+    },
+    {
+      "id": 13,
+      "name": "Parlante Portatil Jbl Grip",
+      "cat": "Tecnología para hogar",
+      "price": 130000,
+      "old": 168000,
+      "img": "/images/uploads/d92ba3fa-58e2-4f75-b044-cfb6763f8026-.png",
+      "colors": [
+        "Color Negro"
+      ]
+    },
+    {}
   ],
   "slides": [
     {
