@@ -1,3 +1,5 @@
+
+100 %
 <!DOCTYPE html>
 <html>
 <head>
@@ -197,7 +199,7 @@
 
         <div>
           <div style="font-family:var(--font-display);font-size:18px;color:var(--ink);margin-bottom:14px;">Precio</div>
-          <input type="range" min="2000" max="90000" step="1000" value="{{ maxPrice }}" onInput="{{ onPrice }}" style="width:100%;accent-color:var(--accent);cursor:pointer;">
+          <input type="range" min="2000" max="{{ priceCeil }}" step="1000" value="{{ maxPrice }}" onInput="{{ onPrice }}" style="width:100%;accent-color:var(--accent);cursor:pointer;">
           <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:8px;font-family:var(--font-body);">
             <span>$2.000</span>
             <span style="color:var(--ink);font-weight:700;">Hasta {{ maxPriceLabel }}</span>
@@ -608,7 +610,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;brand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;piola&quot;,&quot;joya&quot;,&quot;resuelto&quot;],&quot;default&quot;:&quot;resuelto&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { brand:null, cat:'Todos', query:'', sort:'destacados', maxPrice:90000, cart:[], cartOpen:false, toast:null, heroIndex:0,
+  state = { brand:null, cat:'Todos', query:'', sort:'destacados', maxPrice:null, cart:[], cartOpen:false, toast:null, heroIndex:0,
     isMobile:false, menuOpen:false, filtersOpen:false,
     authOpen:false, authMode:'login', fName:'', fEmail:'', fPhone:'', fPass:'', authError:'', user:null, items:null, slides:null, adminOpen:false,
     adminAuthed:false, adminGateOpen:false, adminPass:'', adminGateError:'',
@@ -714,7 +716,7 @@ class Component extends DCLogic {
   }
   changeQty(id,d){ this.setState(s=>({ cart: s.cart.map(c=>c.id===id?{...c,qty:c.qty+d}:c).filter(c=>c.qty>0) })); }
   removeFromCart(id){ this.setState(s=>({ cart: s.cart.filter(c=>c.id!==id) })); }
-  clearAll(){ this.setState({ cat:'Todos', query:'', sort:'destacados', maxPrice:90000 }); }
+  clearAll(){ this.setState({ cat:'Todos', query:'', sort:'destacados', maxPrice:null }); }
   surchargeFor(pay, subtotal){ return pay==='tarjeta' ? Math.round(subtotal*0.10) : 0; }
 
   setMethod(method){ this.setState({ coMethod:method, coError:'' }); }
@@ -787,11 +789,13 @@ class Component extends DCLogic {
     const { cat, query, sort, maxPrice, isMobile } = this.state;
 
     const items = this.getItems();
+    const PCEIL = Math.max(2000000, Math.ceil((items.reduce((m,p)=>Math.max(m,Number(p.price)||0),0))/10000)*10000);
+    const effMax = (maxPrice==null ? PCEIL : maxPrice);
     const SL = this.getSlides();
     // pipeline
     let list = items.filter(p =>
       (cat==='Todos' || p.cat===cat) &&
-      (p.price <= maxPrice) &&
+      (p.price <= effMax) &&
       (query.trim()==='' || p.name.toLowerCase().includes(query.trim().toLowerCase()))
     );
     if(sort==='precio_asc') list = [...list].sort((a,b)=>a.price-b.price);
@@ -850,7 +854,7 @@ class Component extends DCLogic {
       {key:'t', icon:this.trustIcon('trust'), title:'Compra protegida', sub:'Pago 100% seguro'},
     ];
 
-    const anyFilter = cat!=='Todos' || maxPrice<90000 || query.trim()!=='' || sort!=='destacados';
+    const anyFilter = cat!=='Todos' || maxPrice!=null || query.trim()!=='' || sort!=='destacados';
 
     const u = this.state.user;
     const isLogged = !!u;
@@ -893,7 +897,7 @@ class Component extends DCLogic {
       brandBtns, navItems, catList, slides, dots, trust,
       query, onSearch:(e)=>this.setState({query:e.target.value}),
       sort, onSort:(e)=>this.setState({sort:e.target.value}),
-      maxPrice, maxPriceLabel:this.formatARS(maxPrice), onPrice:(e)=>this.setState({maxPrice:Number(e.target.value)}),
+      maxPrice:effMax, priceCeil:PCEIL, maxPriceLabel:this.formatARS(effMax), onPrice:(e)=>this.setState({maxPrice:Number(e.target.value)}),
       sectionTitle: cat==='Todos' ? 'Productos' : cat,
       countLabel: products.length + (products.length===1?' producto':' productos'),
       products, hasProducts: products.length>0, noProducts: products.length===0,
