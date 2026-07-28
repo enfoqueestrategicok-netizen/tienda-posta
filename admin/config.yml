@@ -29,6 +29,7 @@ collections:
               - { label: "Precio", name: "price", widget: "number", value_type: "int" }
               - { label: "Precio anterior (oferta, opcional)", name: "old", widget: "number", value_type: "int", required: false }
               - { label: "Foto", name: "img", widget: "image", required: false, hint: "Se muestra centrada en la tienda." }
+              - { label: "Más fotos (opcional)", name: "gallery", widget: "list", required: false, field: { label: "Foto", name: "src", widget: "image" }, hint: "Otros ángulos del producto. En la tienda se cambian con los puntitos." }
               - label: "Colores disponibles (opcional)"
                 name: "colors"
                 widget: "list"
