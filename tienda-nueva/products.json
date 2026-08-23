@@ -86,9 +86,9 @@
     {
       "img": "/tienda-nueva/images/uploads/gemini_generated_image_46a9sv46a9sv46a9.jpg",
       "old": "",
-      "price": 450000,
+      "price": 450,
       "name": "Camara Motorola  - Nursery - Video Baby Monitor ",
-      "off": 15,
+      "off": 10,
       "desc": "Lo que tenés que saber de este producto\nVoltaje: 110/220V\nCon pantalla a color de 5\".\nSu alcance en interiores es de 300m.\nSus medidas son 9.7cm de alto x 18.01cm de ancho x 22cm de largo.\nTipo de batería: polímero de litio.\nIncluye micrófono de alta sencibilidad \nCon visión nocturna.",
       "gallery": [
         "/tienda-nueva/images/uploads/gemini_generated_image_46a9sv46a9sv46a9-1-.jpg"
@@ -97,58 +97,6 @@
       "cat": "Seguridad familiar",
       "nuevo": true,
       "id": 301
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 34900,
-      "name": "Sensor de apertura x3",
-      "off": 0,
-      "desc": "Para puertas, ventanas y portones\nAviso instantáneo al celular\nInstalación adhesiva, sin agujeros\nPila de 2 años de duración",
-      "gallery": [],
-      "stock": true,
-      "cat": "Seguridad familiar",
-      "nuevo": false,
-      "id": 302
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 29500,
-      "name": "Detector de humo y monóxido",
-      "off": 0,
-      "desc": "Doble sensor: humo y monóxido de carbono\nAlarma de 85 dB\nTest de funcionamiento con un botón\nCertificación de seguridad internacional",
-      "gallery": [],
-      "stock": true,
-      "cat": "Seguridad familiar",
-      "nuevo": false,
-      "id": 303
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 94000,
-      "name": "Caja fuerte digital 20L",
-      "off": 0,
-      "desc": "Apertura por clave y llave de emergencia\nAcero de 3 mm con anclaje a pared\nInterior tapizado para no rayar\nAlarma ante intentos de apertura",
-      "gallery": [],
-      "stock": true,
-      "cat": "Seguridad familiar",
-      "nuevo": false,
-      "id": 304
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 26900,
-      "name": "Botón antipánico portátil",
-      "off": 10,
-      "desc": "Alerta a tus contactos con un botón\nSirena personal de 120 dB\nSe lleva en el llavero o la mochila\nIdeal para adultos mayores y chicos",
-      "gallery": [],
-      "stock": true,
-      "cat": "Seguridad familiar",
-      "nuevo": true,
-      "id": 305
     },
     {
       "img": "",
@@ -175,45 +123,6 @@
       "cat": "Bienestar",
       "nuevo": false,
       "id": 402
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 26900,
-      "name": "Difusor de aromas ultrasónico 300ml",
-      "off": 0,
-      "desc": "Humidifica y perfuma el ambiente\nLuz cálida regulable en 7 colores\nApagado automático sin agua\nHasta 8 horas continuas",
-      "gallery": [],
-      "stock": true,
-      "cat": "Bienestar",
-      "nuevo": false,
-      "id": 403
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 21500,
-      "name": "Almohadilla térmica cervical",
-      "off": 0,
-      "desc": "Calor uniforme en cuello y espalda alta\nTres temperaturas y temporizador\nFunda lavable de microfibra\nCable de 2 metros",
-      "gallery": [],
-      "stock": true,
-      "cat": "Bienestar",
-      "nuevo": false,
-      "id": 404
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 34900,
-      "name": "Balanza inteligente con app",
-      "off": 10,
-      "desc": "Mide peso y composición corporal\nSincroniza con el celular por Bluetooth\nHasta 8 perfiles de usuario\nVidrio templado y apagado automático",
-      "gallery": [],
-      "stock": true,
-      "cat": "Bienestar",
-      "nuevo": true,
-      "id": 405
     }
   ]
 }
