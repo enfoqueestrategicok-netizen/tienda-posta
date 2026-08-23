@@ -69,10 +69,10 @@
     },
     {
       "img": "/tienda-nueva/images/uploads/sin-título-a4-2-.png",
-      "old": 35000,
-      "price": 29520,
+      "old": "",
+      "price": 35000,
       "name": "Enchufe inteligente WiFi ",
-      "off": 15,
+      "off": 10,
       "desc": "Encendé y apagá cualquier artefacto desde el celular\nProgramación por horarios y rutinas\nMedición de consumo eléctrico\nCompatible con Alexa y Google Home",
       "gallery": [
         "/tienda-nueva/images/uploads/sin-título-a4-1-.png",
