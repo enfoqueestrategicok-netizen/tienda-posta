@@ -14,7 +14,7 @@ collections:
     files:
       - name: "productos"
         label: "Productos y portada"
-        file: "tienda-nueva/products.json"
+        file: "products.json"
         description: "Editá precios, textos y fotos. Al guardar, se publica para todos."
         fields:
           - label: "Productos"
