@@ -52,13 +52,16 @@
   ],
   "items": [
     {
-      "img": "",
-      "old": 0,
-      "price": 42900,
-      "name": "Cámara WiFi interior 360°",
-      "off": 15,
+      "img": "/tienda-nueva/images/uploads/diseño-sin-título-1-.png",
+      "old": 109699,
+      "price": 99000,
+      "name": "Cámara Xiaomi WiFi interior 360°",
+      "off": 10,
       "desc": "Visión nocturna y seguimiento de movimiento\nAudio bidireccional para hablar desde el celular\nGraba en microSD hasta 128 GB\nAlertas al teléfono cuando detecta movimiento",
-      "gallery": [],
+      "gallery": [
+        "/tienda-nueva/images/uploads/diseño-sin-título.png",
+        "/tienda-nueva/images/uploads/diseño-sin-título-2-.png"
+      ],
       "stock": true,
       "cat": "Tecnología para el hogar",
       "nuevo": true,
