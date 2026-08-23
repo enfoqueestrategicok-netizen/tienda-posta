@@ -99,32 +99,6 @@
       "id": 301
     },
     {
-      "img": "",
-      "old": 0,
-      "price": 58900,
-      "name": "Masajeador cervical con calor",
-      "off": 15,
-      "desc": "Alivia cuello y hombros en 15 minutos\nTres niveles de intensidad y calor\nInalámbrico, batería para 8 sesiones\nApagado automático a los 20 minutos",
-      "gallery": [],
-      "stock": true,
-      "cat": "Bienestar",
-      "nuevo": true,
-      "id": 401
-    },
-    {
-      "img": "",
-      "old": 0,
-      "price": 74500,
-      "name": "Pistola de masaje muscular",
-      "off": 0,
-      "desc": "Seis cabezales para distintas zonas\nCuatro velocidades, hasta 3200 golpes por minuto\nMotor silencioso, menos de 45 dB\nEstuche rígido para llevar",
-      "gallery": [],
-      "stock": true,
-      "cat": "Bienestar",
-      "nuevo": false,
-      "id": 402
-    },
-    {
       "img": "/tienda-nueva/images/uploads/diseño-sin-título-3-.png",
       "old": 0,
       "price": 130000,
@@ -153,6 +127,21 @@
       "cat": "Tecnología para el hogar",
       "nuevo": false,
       "id": 404
+    },
+    {
+      "img": "/tienda-nueva/images/uploads/gemini_generated_image_nbxa7onbxa7onbxa-2-.jpg",
+      "old": 0,
+      "price": 131000,
+      "name": "Auriculares Bluetooth JBL Tune 520BT",
+      "off": 15,
+      "desc": "Lo que tenés que saber de este producto\nCantidad de pares: 1\nCuenta con conexión bluetooth.\nAlcance inalámbrico de 10 m.\nLa duración máxima de la batería es 57 h.\nTiene una memoria de 32 GB.\nModo manos libres incluido.\nAsistentes de voz integrados: Siri y Google Assistant.\nCon micrófono incorporado.\nResistentes al agua.\nSu clasificación IP es IPX4.\nEl largo del cable es de 1.2 m.\nUso apto para juegos, música.\nTamaño del altavoz: 3.3cm.",
+      "gallery": [
+        "/tienda-nueva/images/uploads/gemini_generated_image_nbxa7onbxa7onbxa-1-.jpg"
+      ],
+      "stock": true,
+      "cat": "Tecnología para el hogar",
+      "nuevo": true,
+      "id": 405
     }
   ]
 }
