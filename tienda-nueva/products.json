@@ -1,8 +1,8 @@
 {
   "config": {
-    "whatsapp": "",
-    "cintillo": "Envíos a todo el país · Pedidos por WhatsApp",
-    "envioCosto": 8900,
+    "whatsapp": "3513603155",
+    "cintillo": "Envíos a todo el país - Pedidos por WhatsApp - ",
+    "envioCosto": 5000,
     "envioGratisDesde": 150000,
     "waConsulta": "Hola Domo, quiero hacer una consulta."
   },
@@ -20,12 +20,12 @@
     {
       "title": "Cuidalos también cuando no estás",
       "sub": "Collares GPS, comederos automáticos y cámaras para mascotas.",
-      "img": ""
+      "img": "/tienda-nueva/images/uploads/gemini_generated_image_h98pyah98pyah98p.jpg"
     },
     {
       "title": "Cuidarte también es parte de la casa",
       "sub": "Masajeadores, difusores y descanso. Bienestar, el rubro nuevo de Domo.",
-      "img": ""
+      "img": "/tienda-nueva/images/uploads/gemini_generated_image_fwmdk1fwmdk1fwmd.jpg"
     }
   ],
   "rubros": [
