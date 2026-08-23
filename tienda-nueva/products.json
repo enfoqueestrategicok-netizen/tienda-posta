@@ -65,13 +65,16 @@
       "id": 101
     },
     {
-      "img": "/tienda-nueva/images/uploads/gemini_generated_image_qw7s33qw7s33qw7s.jpg",
+      "img": "/tienda-nueva/images/uploads/sin-título-a4-2-.png",
       "old": 35000,
       "price": 29520,
       "name": "Enchufe inteligente WiFi ",
       "off": 15,
       "desc": "Encendé y apagá cualquier artefacto desde el celular\nProgramación por horarios y rutinas\nMedición de consumo eléctrico\nCompatible con Alexa y Google Home",
-      "gallery": [],
+      "gallery": [
+        "/tienda-nueva/images/uploads/sin-título-a4-1-.png",
+        "/tienda-nueva/images/uploads/sin-título-a4-.png"
+      ],
       "stock": true,
       "cat": "Tecnología para el hogar",
       "nuevo": true,
