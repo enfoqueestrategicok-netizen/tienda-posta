@@ -123,6 +123,22 @@
       "cat": "Bienestar",
       "nuevo": false,
       "id": 402
+    },
+    {
+      "img": "/tienda-nueva/images/uploads/chatgpt-image-22-ago-2026-11_16_13-a.m..png",
+      "old": 0,
+      "price": 130,
+      "name": "Jbl Go 5 Original Portátil Y Resistente Al Agua",
+      "off": 15,
+      "desc": "Lo que tenés que saber de este producto\nVoltaje: 5V\nTipo de parlante: full-range, portátil.\nEs a prueba de agua.\nApto para uso en exteriores.\nCon conectividad bluetooth.\nBatería recargable.\nPotencia de 10W.\nViene con un micrófono de accesorio.\nConector de entrada: USB.\nLugar de colocación: aire libre y portátil y uso en exteriores.\nDimensiones: 10.1cm de ancho, 7.74cm de alto y 4.3cm de profundidad.\nTiempo de carga de la batería: 2.5h.",
+      "gallery": [
+        "/tienda-nueva/images/uploads/diseño-sin-título-4-.png",
+        "/tienda-nueva/images/uploads/gemini_generated_image_brv4t6brv4t6brv4.jpg"
+      ],
+      "stock": true,
+      "cat": "Tecnología para el hogar",
+      "nuevo": true,
+      "id": 403
     }
   ]
 }
