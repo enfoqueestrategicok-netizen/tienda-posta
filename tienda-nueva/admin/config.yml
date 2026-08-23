@@ -15,7 +15,7 @@ collections:
     files:
       - name: "catalogo"
         label: "Productos, rubros y portada"
-        file: "products.json"
+        file: "tienda-nueva/products.json"
         description: "Editá precios, descuentos, stock y fotos. Al tocar Publish se publica para todos."
         fields:
           - label: "Productos"
