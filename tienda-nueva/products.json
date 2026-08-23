@@ -63,7 +63,7 @@
         "/tienda-nueva/images/uploads/diseño-sin-título-2-.png"
       ],
       "stock": true,
-      "cat": "Tecnología para el hogar",
+      "cat": "Seguridad familiar",
       "nuevo": true,
       "id": 101
     },
@@ -142,6 +142,22 @@
       "cat": "Tecnología para el hogar",
       "nuevo": true,
       "id": 405
+    },
+    {
+      "img": "/tienda-nueva/images/uploads/gemini_generated_image_eg0dlmeg0dlmeg0d.jpg",
+      "old": 0,
+      "price": 88000,
+      "name": "Perfume Lattafa Yara  - Rosa - 100 Ml Mujer Original",
+      "off": 10,
+      "desc": "Lo que tenés que saber de este producto\nEs recargable: No\nVolumen de la unidad: 100 mL\nPaís de origen: Emiratos Árabes Unidos (U.A.E).",
+      "gallery": [
+        "/tienda-nueva/images/uploads/gemini_generated_image_eg0dlmeg0dlmeg0d-1-.jpg",
+        "/tienda-nueva/images/uploads/whatsapp-image-2026-08-21-at-10.47.35.jpeg"
+      ],
+      "stock": true,
+      "cat": "Bienestar",
+      "nuevo": true,
+      "id": 406
     }
   ]
 }
