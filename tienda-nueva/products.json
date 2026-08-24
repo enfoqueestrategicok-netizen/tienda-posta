@@ -216,6 +216,22 @@
       "cat": "Bienestar",
       "nuevo": false,
       "id": 410
+    },
+    {
+      "img": "/tienda-nueva/images/uploads/gemini_generated_image_mkqef1mkqef1mkqe.jpg",
+      "old": 0,
+      "price": 61000,
+      "name": "Casita para Gato - Perro ",
+      "off": 10,
+      "desc": "¿Tu mascota busca siempre rincones cerrados y calentitos para dormir? Esta cucha tipo cueva es perfecta para que se sienta segura, cómoda y feliz durante todo el invierno.\n\nHecha con terciopelo ártico ultra suave y relleno de espuma, esta cama tipo casa cerrada mantiene el calor y brinda una sensación de refugio ideal para gatos o perros pequeños. Su diseño semi-cerrado no solo los protege del frío, también les da privacidad y tranquilidad. Tiene base antideslizante, es completamente desarmable y se puede lavar sin complicaciones.\n\n• Interior abrigado, suave y mullido\n• Base antideslizante y resistente a la humedad\n• Desmontable, lavable y fácil de mantener limpia\n• Diseño tipo cueva tierno y decorativo\n• Ideal para gatos o perros pequeños de hasta 12 kg",
+      "gallery": [
+        "/tienda-nueva/images/uploads/gemini_generated_image_nrnxirnrnxirnrnx.jpg",
+        "/tienda-nueva/images/uploads/gemini_generated_image_uc8qgyuc8qgyuc8q.jpg"
+      ],
+      "stock": true,
+      "cat": "Mascotas",
+      "nuevo": true,
+      "id": 412
     }
   ]
 }
