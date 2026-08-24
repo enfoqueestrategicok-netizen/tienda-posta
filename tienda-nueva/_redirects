@@ -1,0 +1,5 @@
+# Las fotos guardadas apuntan a /tienda-nueva/images/... : las servimos igual (sin cambiar la URL)
+/tienda-nueva/images/*   /images/:splat   200
+
+# Cualquier otro link viejo de /tienda-nueva/ va a la raiz
+/tienda-nueva/*          /:splat          301
