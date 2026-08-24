@@ -200,6 +200,22 @@
       "cat": "Bienestar",
       "nuevo": false,
       "id": 409
+    },
+    {
+      "img": "/tienda-nueva/images/uploads/sin-título-a4-16-.png",
+      "old": 0,
+      "price": 72000,
+      "name": "Cepillo Secador",
+      "off": 10,
+      "desc": "\nLo que tenés que saber de este producto\nVoltaje: 220V.\nLa potencia de 1300 W permite secar y modelar el cabello en una sola pasada para reducir el tiempo de uso diario.\nLos 3 niveles de temperatura permiten ajustar el calor aplicado según el grosor y el estado de la fibra capilar.\nLas cerdas con revestimiento de cerámica distribuyen el calor de forma constante sobre la superficie del cabello.",
+      "gallery": [
+        "/tienda-nueva/images/uploads/sin-título-a4-14-.png",
+        "/tienda-nueva/images/uploads/sin-título-a4-15-.png"
+      ],
+      "stock": true,
+      "cat": "Bienestar",
+      "nuevo": false,
+      "id": 410
     }
   ]
 }
