@@ -174,7 +174,7 @@
     {
       "img": "/tienda-nueva/images/uploads/sin-título-a4-10-.png",
       "old": 0,
-      "price": 35000,
+      "price": 37000,
       "name": "Cama cueva con colgante para gatos",
       "off": 10,
       "desc": "Refugio de Confort: Cama Cueva para Gatos con Juguete Integrado\n\n¿Buscas el lugar perfecto para que tu gato se sienta seguro y relajado? Nuestra Cama Cueva  es mucho más que un simple almohadón; es un santuario diseñado para satisfacer el instinto natural de los felinos de dormir en lugares protegidos y acogedores. Su estructura acolchada mantiene el calor corporal, proporcionando un descanso reparador incluso en los días más frescos.\n\nLo que tenés que saber de este producto\nAltura: 32 cm\nAncho: 40 cm\nLargo: 40 cm\nFabricada en: poliéster.",
@@ -185,6 +185,21 @@
       "cat": "Mascotas",
       "nuevo": false,
       "id": 408
+    },
+    {
+      "img": "/tienda-nueva/images/uploads/sin-título-a4-13-.png",
+      "old": 0,
+      "price": 45000,
+      "name": "Masajeadora electrica corporal",
+      "off": 10,
+      "gallery": [
+        "/tienda-nueva/images/uploads/sin-título-a4-11-.png",
+        "/tienda-nueva/images/uploads/sin-título-a4-12-.png"
+      ],
+      "stock": true,
+      "cat": "Bienestar",
+      "nuevo": false,
+      "id": 409
     }
   ]
 }
